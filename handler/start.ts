@@ -1,12 +1,50 @@
 import { Handler, RequestBody } from "../main";
-import { MongoDBDocumentInterface } from "../util";
+import { MongoDBDocumentInterface, sendMessage, OptionInterface } from "../util";
 import Mongoose from "mongoose"
 
 const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
-	const msg = body.message;
+	// const msg = body.message;
 	const chat = body.message.chat;
-	const model = Mongoose.model(chat.type, ctx.Schema)
+	const model = Mongoose.model(chat.type, ctx.Schema);
+	const _filter: MongoDBDocumentInterface = {
+		chatId: chat.id
+	}
+	model.findOne(_filter).exec((err, res) => {
+		if (err) {
+			sendMessage({
+				chat_id: chat.id,
+				text: "有点问题. 它出错了" // i18n
+			});
+			console.error("start: model.findOne(_filter): err:", err);
+			console.error("start: model.findOne(_filter): filter:", _filter);
+			return;
+		}
+		if (!res || !Array.isArray(res)) {
+			sendMessage({
+				chat_id: chat.id,
+				text: "木有候选项, 先添加一些候选项吧. " + "/add" // i18n
+			});
+		} else {
+			let _str = "";
+			let _prioritySum = 0;
+			for (let i = 0, len = res.length; i < len; i++) {
+				_prioritySum += res[i].priority;
+			}
+			let _candidateIndex = Math.ceil(Math.random() * _prioritySum);
+			_prioritySum = 0;
+			for (let i = 0, len = res.length; i < len; i++)
+				if ((_prioritySum += res[i].priority) >= _candidateIndex) {
+					_str = res[i].priority;
+					break;
+				}
+			sendMessage({
+				chat_id: chat.id,
+				parse_mode: "Markdown",
+				text: `**${_str}**, 安排! ` // i18n
+			});
+		}
+	});
 	res.json({
 		success: true
 	});

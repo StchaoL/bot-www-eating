@@ -1,6 +1,7 @@
 import request, { Options, RequestPromise } from "request-promise-native";
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { URL } from "url";
+import { SentMessage } from "./TelegramType";
 
 // const mongoose = require('mongoose')
 // const config = require('./config')
@@ -41,16 +42,28 @@ export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 		headers: {
 			'content-type': 'multipart/form-data' // Is set automatically
 		}
-	}
-	return request(_opt)
+	};
+	return request(_opt);
 }
 
+export const sendMessage = (message: SentMessage): RequestPromise<any> => {
+	let _opt: Options = {
+		uri: `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+		formData: message,
+		headers: {
+			'content-type': 'multipart/form-data' // Is set automatically
+		}
+	};
+	return request(_opt);
+}
+
+// MongoDB
 
 if (process.env.NODE_ENV === 'development') {
-	mongoose.set('debug', true)
+	mongoose.set('debug', true);
 }
 
-mongoose.set('bufferCommands', false)
+mongoose.set('bufferCommands', false);
 
 function connectMongoDB(address: string) {
 	try {
@@ -75,9 +88,53 @@ function connectMongoDB(address: string) {
 }
 
 export const mongoInstance = connectMongoDB(MONGODB_ADDRESS);
-export const botSchema = new Schema({
-	id: Number
+
+export const optionSchema = new Schema({
+	name: String,
+	priority: Number
 });
+
+export const botSchema = new Schema({
+	id: { type: Number, index: true },
+	options: [optionSchema]
+});
+
 export interface MongoDBDocumentInterface {
-	id: number;
+	chatId: number;
+	options?: Array<OptionInterface>;
 };
+
+export interface OptionInterface {
+	name: string;
+	priority: number;
+};
+
+export interface ParsedOptionInterface extends OptionInterface {
+	index: number;
+}
+
+export const parser = (str: string, addMode: boolean): ParsedOptionInterface => {
+	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
+	let _index = 0
+	let ret: ParsedOptionInterface = {
+		index: -1,
+		name: "",
+		priority: 1
+	}
+	let reg: RegExp;
+	if (addMode) {
+		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*:\s*(\d+).*/, (s, g1, g2, g3, g4) => {
+			ret.index = Number.parseInt(g1);
+			ret.name = g3;
+			ret.priority = Number.parseInt(g4);
+			return "";
+		});
+	} else {
+		str.replace(/(.+?)\s*:\s*(\d+).*/, (s, g1, g2) => {
+			ret.name = g1;
+			ret.priority = Number.parseInt(g2);
+			return "";
+		})
+	}
+	return ret;
+}
