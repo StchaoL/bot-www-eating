@@ -1,12 +1,12 @@
 import { Handler, RequestBody } from "../main";
 import Mongoose from "mongoose";
-import { MongoDBDocumentInterface, sendMessage, OptionInterface } from "../util";
+import { MongoDBDocumentInterface, sendMessage, OptionInterface, MongoDBModelInterface } from "../util";
 
 const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	// const msg = body.message;
 	const chat = body.message.chat;
-	const model = Mongoose.model(chat.type, ctx.Schema);
+	const model = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
 	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	}
@@ -18,16 +18,14 @@ const handler: Handler = (req, res, next, ctx) => {
 			});
 			console.error("start: model.findOne(_filter): err:", err);
 			console.error("start: model.findOne(_filter): filter:", _filter);
-			return;
-		}
-		if (!res || !Array.isArray(res)) {
+		} else if (!res || !Array.isArray(res.options)) {
 			sendMessage({
 				chat_id: chat.id,
 				text: "木有候选项, 先添加一些候选项吧. " + "/add" // i18n
 			});
 		} else {
 			let stringBuf = [];
-			res.forEach((e: OptionInterface) => {
+			res.options.forEach((e: OptionInterface) => {
 				stringBuf.push(` * ${e.name} .... ${e.priority} \n`);
 			});
 			sendMessage({

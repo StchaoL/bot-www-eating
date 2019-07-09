@@ -104,6 +104,8 @@ export interface MongoDBDocumentInterface {
 	options?: Array<OptionInterface>;
 };
 
+export interface MongoDBModelInterface extends MongoDBDocumentInterface, Document { };
+
 export interface OptionInterface {
 	name: string;
 	priority: number;
@@ -115,11 +117,13 @@ export interface ParsedOptionInterface extends OptionInterface {
 
 export const parser = (str: string, addMode: boolean): ParsedOptionInterface => {
 	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
-	let _index = 0
+	// let _index = 0
+	if (str.indexOf(":") < 0)
+		str = str + ": 1";
 	let ret: ParsedOptionInterface = {
 		index: -1,
 		name: "",
-		priority: 1
+		priority: -1
 	}
 	let reg: RegExp;
 	if (addMode) {
@@ -134,7 +138,7 @@ export const parser = (str: string, addMode: boolean): ParsedOptionInterface => 
 			ret.name = g1;
 			ret.priority = Number.parseInt(g2);
 			return "";
-		})
+		});
 	}
 	return ret;
 }

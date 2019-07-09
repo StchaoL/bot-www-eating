@@ -1,18 +1,36 @@
 import { Handler, RequestBody } from "../main";
-import Mongoose from "mongoose";
-import { MongoDBDocumentInterface, parser, sendMessage } from "../util";
-
+import Mongoose, { Model } from "mongoose";
+import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
+import update from "./update";
 
 const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
+	if (!msg) {
+		res.json({
+			success: false
+		});
+		next();
+		return console.error("Message is undefined:", body);
+	}
 	const chat = msg.chat;
-	const model = Mongoose.model(chat.type, ctx.Schema);
+	const IModel: Model<MongoDBModelInterface> = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
 	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	}
 	const option = parser(msg.text, body.edited_message === undefined);
-	model.findOne(_filter).exec((err, res) => {
+	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
+		sendMessage({
+			chat_id: chat.id,
+			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
+		});
+		res.json({
+			success: true
+		});
+		next();
+		return;
+	}
+	IModel.findOne(_filter).exec((err, _res) => {
 		if (err) {
 			sendMessage({
 				chat_id: chat.id,
@@ -20,13 +38,23 @@ const handler: Handler = (req, res, next, ctx) => {
 			});
 			console.error("start: model.findOne(_filter): err:", err);
 			console.error("start: model.findOne(_filter): filter:", _filter);
-			return;
-		}
-		if (!res || !Array.isArray(res)) {
-			let _options = [option];
-			model.options = _options;
+		} else if (!_res || !Array.isArray(_res.options)) {
+			let model = new IModel({
+				chatId: chat.id,
+				options: [{
+					name: option.name,
+					priority: option.priority
+				}]
+			});
+			model.save();
+		} else if (body.edited_message === undefined) {
+			_res.options.push({
+				name: option.name,
+				priority: option.priority
+			});
+			_res.save();
 		} else {
-
+			return update(req, res, next, ctx);
 		}
 	});
 	res.json({

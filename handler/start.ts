@@ -1,12 +1,14 @@
 import { Handler, RequestBody } from "../main";
-import { MongoDBDocumentInterface, sendMessage, OptionInterface } from "../util";
+import { MongoDBDocumentInterface, sendMessage, MongoDBModelInterface } from "../util";
 import Mongoose from "mongoose"
 
 const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
-	// const msg = body.message;
-	const chat = body.message.chat;
-	const model = Mongoose.model(chat.type, ctx.Schema);
+	const msg = body.message || body.edited_message;
+	if (!msg)
+		return console.error("Message is undefined:", body);
+	const chat = msg.chat;
+	const model = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
 	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	}
@@ -20,22 +22,23 @@ const handler: Handler = (req, res, next, ctx) => {
 			console.error("start: model.findOne(_filter): filter:", _filter);
 			return;
 		}
-		if (!res || !Array.isArray(res)) {
+		if (!res || !Array.isArray(res.options)) {
 			sendMessage({
 				chat_id: chat.id,
-				text: "木有候选项, 先添加一些候选项吧. " + "/add" // i18n
+				text: "木有候选项, 先添加一些候选项吧. " + "/touch" // i18n
 			});
 		} else {
 			let _str = "";
 			let _prioritySum = 0;
-			for (let i = 0, len = res.length; i < len; i++) {
-				_prioritySum += res[i].priority;
+			let _options = res.options;
+			for (let i = 0, len = _options.length; i < len; i++) {
+				_prioritySum += _options[i].priority;
 			}
 			let _candidateIndex = Math.ceil(Math.random() * _prioritySum);
 			_prioritySum = 0;
-			for (let i = 0, len = res.length; i < len; i++)
-				if ((_prioritySum += res[i].priority) >= _candidateIndex) {
-					_str = res[i].priority;
+			for (let i = 0, len = _options.length; i < len; i++)
+				if ((_prioritySum += _options[i].priority) >= _candidateIndex) {
+					_str = _options[i].name;
 					break;
 				}
 			sendMessage({
