@@ -1,19 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Init environment variable.
  */
-
-try {
-  var app = require('../dist/app');
-} catch (e) {
-  console.error("Please run 'npm run build' first.");
-  return;
-}
-
-var debug = require('debug')('bot-www-eating:server');
-var http = require('http');
-
 let BUILD_VERSION = process.env.NODE_ENV;
 if (!BUILD_VERSION) {
   process.env.NODE_ENV = "default";
@@ -28,6 +17,21 @@ let ENV_VARIABLE = require("../env/" + BUILD_VERSION);
     }
   }
 })();
+
+/**
+ * Module dependencies.
+ */
+
+try {
+  var app = require('../dist/app');
+} catch (e) {
+  console.error("Please run 'npm run build' first.");
+  return;
+}
+
+var debug = require('debug')('bot-www-eating:server');
+var http = require('http');
+
 
 console.log(JSON.stringify(ENV_VARIABLE));
 
