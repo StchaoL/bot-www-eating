@@ -24,7 +24,7 @@ const handler: Handler = (req, res, next, ctx) => {
 				text: "木有候选项, 先添加一些候选项吧. " + "/add" // i18n
 			});
 		} else {
-			let stringBuf = [];
+			let stringBuf: Array<string> = [];
 			res.options.forEach((e: OptionInterface) => {
 				stringBuf.push(` * ${e.name} .... ${e.priority} \n`);
 			});

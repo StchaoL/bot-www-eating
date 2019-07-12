@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"target": "es6",
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"node_modules/*",
+				"/*"
+			]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		"bin",
+		"assert",
+		"public"
+	]
+}

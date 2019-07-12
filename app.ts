@@ -18,7 +18,7 @@ const app = express();
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 const DOMAIN = process.env.DOMAIN || "https://example.net";
-const tokenEncoded = new Buffer(TOKEN).toString("base64");
+const tokenEncoded = Buffer.from(TOKEN).toString("base64");
 
 app.use(logger('dev'));
 app.use(express.json());

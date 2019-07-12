@@ -4,9 +4,32 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+try {
+  var app = require('../dist/app');
+} catch (e) {
+  console.error("Please run 'npm run build' first.");
+  return;
+}
+
 var debug = require('debug')('bot-www-eating:server');
 var http = require('http');
+
+let BUILD_VERSION = process.env.NODE_ENV;
+if (!BUILD_VERSION) {
+  process.env.NODE_ENV = "default";
+  BUILD_VERSION = "default";
+}
+let ENV_VARIABLE = require("../env/" + BUILD_VERSION);
+(() => {
+  const _ENV = process.env;
+  for (const key in ENV_VARIABLE) {
+    if (ENV_VARIABLE.hasOwnProperty(key)) {
+      _ENV[key] = ENV_VARIABLE[key];
+    }
+  }
+})();
+
+console.log(JSON.stringify(ENV_VARIABLE));
 
 /**
  * Get port from environment and store in Express.
