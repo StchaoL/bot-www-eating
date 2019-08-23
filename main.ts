@@ -3,6 +3,7 @@ import { RequestHandler, Request, Response, NextFunction } from "express";
 import { Update } from "./TelegramType";
 import util from "util";
 import Mongoose from "mongoose";
+import log4js, { Logger } from 'log4js';
 
 import { mongoInstance, botSchema } from "./util";
 import list from "./handler/list";
@@ -11,10 +12,24 @@ import update from "./handler/update";
 import del from './handler/delete';
 import start from './handler/start';
 
+const logger = log4js.getLogger();
+
+switch (process.env.NODE_ENV) {
+	case "development":
+		log4js.configure(require("./config/dev/log4js.json"));
+		logger.level = 'debug';
+		break;
+	case "prod":
+		log4js.configure(require("./config/prod/log4js.json"));
+		logger.level = 'warn';
+		break;
+}
+
 interface CmdRouter {
 	Command: Array<string>,
 	DB: Mongoose.Connection,
-	Schema: Mongoose.Schema
+	Schema: Mongoose.Schema,
+	Logger: Logger
 }
 
 export interface Handler {
@@ -64,6 +79,7 @@ export const cmdRouter: RequestHandler = (req, res, next) => {
 	router[cmd[0]](req, res, next, {
 		Command: cmd,
 		DB: mongoInstance,
-		Schema: botSchema
+		Schema: botSchema,
+		Logger: logger
 	});
 }

@@ -6,10 +6,12 @@
 	"configurations": [
 		{
 			"type": "node",
-			"request": "launch",
+			"request": "attach",
 			"name": "Debug",
-			"protocol": "inspector",
-			"program": "${workspaceFolder}\\bin\\www"
+			"address": "debug.ciaociao.xyz",
+			"port": 80,
+			"localRoot": "${workspaceFolder}",
+			"remoteRoot": "/ws/8090" // 工作目录
 		}
 	]
 }

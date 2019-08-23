@@ -1,8 +1,9 @@
 import { Handler, RequestBody } from "../main";
 import Mongoose, { Model } from "mongoose";
+import { Logger } from "log4js";
 import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
 
-const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Model<MongoDBModelInterface>) => {
+const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Model<MongoDBModelInterface>, logger: Logger) => {
 	const option = parser(msgText, false);
 	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
 		sendMessage({
@@ -17,8 +18,8 @@ const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Mod
 				chat_id: filter.chatId,
 				text: "有点问题. 它出错了" // i18n
 			});
-			console.error("start: model.findOne(_filter): err:", err);
-			console.error("start: model.findOne(_filter): filter:", filter);
+			logger.error("start: model.findOne(_filter): err:", err);
+			logger.error("start: model.findOne(_filter): filter:", filter);
 			return;
 		}
 		if (!res || !Array.isArray(res.options)) {
@@ -48,14 +49,14 @@ const handler: Handler = (req, res, next, ctx) => {
 			success: false
 		});
 		next();
-		return console.error("Message is undefined:", body);
+		return ctx.Logger.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
 	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	};
 	const IModel: Model<MongoDBModelInterface> = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
-	_handler(_filter, msg.text, IModel);
+	_handler(_filter, msg.text, IModel, ctx.Logger);
 	res.json({
 		success: true
 	});

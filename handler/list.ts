@@ -16,8 +16,8 @@ const handler: Handler = (req, res, next, ctx) => {
 				chat_id: chat.id,
 				text: "有点问题. 它出错了" // i18n
 			});
-			console.error("start: model.findOne(_filter): err:", err);
-			console.error("start: model.findOne(_filter): filter:", _filter);
+			ctx.Logger.error("start: model.findOne(_filter): err:", err);
+			ctx.Logger.error("start: model.findOne(_filter): filter:", _filter);
 		} else if (!res || !Array.isArray(res.options)) {
 			sendMessage({
 				chat_id: chat.id,

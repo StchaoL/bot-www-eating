@@ -1,6 +1,7 @@
 import express from "express";
 // import path from "path";
-import logger from "morgan";
+// import logger from "morgan";
+
 import { URL } from "url";
 import { setWebhook } from "./util";
 import { cmdRouter } from "./main";
@@ -20,9 +21,9 @@ const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 const DOMAIN = process.env.DOMAIN || "https://example.net";
 const tokenEncoded = Buffer.from(TOKEN).toString("base64");
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// app.use(logger('dev'));
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
