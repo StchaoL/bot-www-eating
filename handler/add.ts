@@ -1,7 +1,7 @@
 import { Handler, RequestBody } from "../main";
 import Mongoose, { Model } from "mongoose";
 import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
-import update from "./update";
+// import update from "./update";
 
 const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
@@ -18,8 +18,9 @@ const handler: Handler = (req, res, next, ctx) => {
 	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	}
-	const option = parser(msg.text, body.edited_message === undefined);
-	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
+	//	const option = parser(msg.text, body.edited_message === undefined);
+	const option = parser(msg.text, true);
+	if (option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
 		sendMessage({
 			chat_id: chat.id,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
@@ -30,6 +31,7 @@ const handler: Handler = (req, res, next, ctx) => {
 		next();
 		return;
 	}
+	console.log("Touch options:", JSON.stringify(option));
 	IModel.findOne(_filter).exec((err, _res) => {
 		if (err) {
 			sendMessage({
@@ -47,15 +49,17 @@ const handler: Handler = (req, res, next, ctx) => {
 				}]
 			});
 			model.save();
-		} else if (body.edited_message === undefined) {
+		// } else if (body.edited_message === undefined) {
+		} else {
 			_res.options.push({
 				name: option.name,
 				priority: option.priority
 			});
 			_res.save();
-		} else {
-			return update(req, res, next, ctx);
 		}
+			//		} else {
+		//			return update(req, res, next, ctx);
+			//		}
 	});
 	res.json({
 		success: true

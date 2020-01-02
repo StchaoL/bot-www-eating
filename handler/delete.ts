@@ -3,6 +3,7 @@ import Mongoose, { Model } from "mongoose";
 import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
 
 const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Model<MongoDBModelInterface>) => {
+	msgText = msgText.replace(/.*?(\d+).*?/g, "$1");
 	let index = Number.parseInt(msgText);
 	if (isNaN(index)) {
 		sendMessage({
