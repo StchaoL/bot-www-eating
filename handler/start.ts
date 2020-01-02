@@ -6,7 +6,7 @@ const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg)
-		return ctx.Logger.error("Message is undefined:", body);
+		return console.error("Message is undefined:", body);
 	const chat = msg.chat;
 	const model = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
 	const _filter: MongoDBDocumentInterface = {
@@ -18,8 +18,8 @@ const handler: Handler = (req, res, next, ctx) => {
 				chat_id: chat.id,
 				text: "有点问题. 它出错了" // i18n
 			});
-			ctx.Logger.error("start: model.findOne(_filter): err:", err);
-			ctx.Logger.error("start: model.findOne(_filter): filter:", _filter);
+			console.error("start: model.findOne(_filter): err:", err);
+			console.error("start: model.findOne(_filter): filter:", _filter);
 			return;
 		}
 		if (!res || !Array.isArray(res.options)) {

@@ -25,7 +25,6 @@ import help from './handler/help';
 //		logger.level = 'warn';
 //		break;
 //}
->>>>>>> Stashed changes
 
 interface CmdRouter {
 	Command: Array<string>,

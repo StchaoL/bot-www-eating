@@ -10841,3 +10841,412 @@
 2020-01-02 14:17 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
 2020-01-02 14:17 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
 2020-01-02 14:17 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:18 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:18 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:18 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:18 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:18 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:18 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:18 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:18 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:18 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:18 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:18 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:18 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:18 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:18 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:18 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:18 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:18 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:18 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:18 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:18 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:18 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:18 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:18 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:18 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:18 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:18 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:18 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:18 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:18 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:19 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:19 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:19 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:19 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:19 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:19 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:19 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:19 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:19 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:19 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:19 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:19 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:19 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:19 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:19 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:19 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:19 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:19 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:19 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:19 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:19 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:19 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:19 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:19 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:19 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:19 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:19 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:19 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:19 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:20 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:20 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:20 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:20 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:20 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:20 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:20 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:20 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:20 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:20 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:20 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:20 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:20 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:20 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:20 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:20 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:20 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:20 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:20 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:20 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:20 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:20 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:20 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:20 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:20 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:20 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:20 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:20 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:20 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:21 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:21 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:21 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:21 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:21 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:21 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:21 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:21 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:21 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:21 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:21 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:21 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:21 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:21 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:21 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:21 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:21 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:21 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:21 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:21 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:21 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:21 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:21 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:21 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:21 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:21 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:21 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:21 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:21 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:22 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:22 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:22 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:22 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:22 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:22 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:22 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:22 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:22 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:22 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:22 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:22 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:22 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:22 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:22 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:22 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:22 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:22 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:22 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:22 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:22 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:22 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:22 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:22 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:22 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:22 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:22 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:22 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:22 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:23 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:23 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:23 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:23 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:23 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:23 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:23 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:23 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:23 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:23 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:23 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:23 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:23 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:23 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:23 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:23 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:23 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:23 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:23 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:23 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:23 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:23 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:23 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:23 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:23 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:23 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:23 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:23 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:23 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:24 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:24 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:24 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:24 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:24 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:24 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:24 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:24 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:24 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:24 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:24 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:24 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:24 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:24 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:24 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:24 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:24 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:24 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:24 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:24 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:24 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:24 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:24 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:24 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:24 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:24 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:24 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:24 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:24 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:25 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:25 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:25 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:25 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:25 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:25 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:25 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:25 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:25 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:25 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:25 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:25 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:25 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:25 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:25 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:25 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:25 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:25 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:25 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:25 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:25 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:25 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:25 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:25 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:25 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:25 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:25 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:25 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:25 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:26 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:26 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:26 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:26 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:26 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:26 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:26 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:26 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:26 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:26 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:26 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:26 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:26 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:26 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:26 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:26 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:46:18)
+2020-01-02 14:26 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:26 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:26 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:26 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:26 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:26 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:26 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:26 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:26 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:26 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:26 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:26 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:26 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:30 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:30 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:30 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:30 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:30 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:30 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:30 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:30 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:30 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:30 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:30 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:30 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:30 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:30 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:30 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:30 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:30 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:30 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:30 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:30 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:30 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:30 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:30 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:30 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:30 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:30 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:30 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:30 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:30 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:31 +08:00: (node:3827) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+2020-01-02 14:31 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:31 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:31 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:31 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:31 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:31 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:31 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:31 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:31 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:31 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:31 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:31 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:31 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:31 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:31 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:31 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:31 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:31 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:31 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:31 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:31 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:31 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:31 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:31 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:31 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:31 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:31 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:31 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:31 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:32 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:32 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:32 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:32 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:32 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:32 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:32 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:32 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:32 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:32 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:32 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:32 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:32 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:32 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
+2020-01-02 14:32 +08:00: TypeError: Cannot read property 'indexOf' of undefined
+2020-01-02 14:32 +08:00:     at exports.cmdRouter (/home/chaol/Documents/git/bot-www-eating/dist/main.js:45:18)
+2020-01-02 14:32 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:32 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:32 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:32 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:32 +08:00:     at urlencodedParser (/home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+2020-01-02 14:32 +08:00:     at Layer.handle [as handle_request] (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/layer.js:95:5)
+2020-01-02 14:32 +08:00:     at trim_prefix (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:317:13)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:284:7
+2020-01-02 14:32 +08:00:     at Function.process_params (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:335:12)
+2020-01-02 14:32 +08:00:     at next (/home/chaol/Documents/git/bot-www-eating/node_modules/express/lib/router/index.js:275:10)
+2020-01-02 14:32 +08:00:     at /home/chaol/Documents/git/bot-www-eating/node_modules/body-parser/lib/read.js:130:5
+2020-01-02 14:32 +08:00:     at invokeCallback (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:224:16)
+2020-01-02 14:32 +08:00:     at done (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:213:7)
+2020-01-02 14:32 +08:00:     at IncomingMessage.onEnd (/home/chaol/Documents/git/bot-www-eating/node_modules/raw-body/index.js:273:7)
