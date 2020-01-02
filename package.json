@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=prod node ./bin/www",
-    "startd": "cross-env NODE_ENV=prod pm2 start ./bin/pm2.config.json --env production",
+    "startd": "pm2 start ./bin/pm2.config.json --env production",
     "build": "npm run build-ts",
     "build-ts": "tsc"
   },
