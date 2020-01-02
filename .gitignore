@@ -2,5 +2,5 @@ node_modules/*
 yarn.lock
 dist/*
 .idea/
-dev/prod.js
+env/prod.js
 logs/*
