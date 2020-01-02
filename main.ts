@@ -3,6 +3,7 @@ import { RequestHandler, Request, Response, NextFunction } from "express";
 import { Update } from "./TelegramType";
 import util from "util";
 import Mongoose from "mongoose";
+// import log4js, { Logger } from 'log4js';
 
 import { mongoInstance, botSchema } from "./util";
 import list from "./handler/list";
@@ -11,6 +12,20 @@ import update from "./handler/update";
 import del from './handler/delete';
 import start from './handler/start';
 import help from './handler/help';
+
+// const logger = log4js.getLogger();
+
+//switch (process.env.NODE_ENV) {
+//	case "development":
+//		log4js.configure(require("./config/dev/log4js.json"));
+//		logger.level = 'debug';
+//		break;
+//	case "prod":
+//		log4js.configure(require("./config/prod/log4js.json"));
+//		logger.level = 'warn';
+//		break;
+//}
+>>>>>>> Stashed changes
 
 interface CmdRouter {
 	Command: Array<string>,
@@ -48,7 +63,7 @@ const parseCmd = (text: string): Array<string> => {
 }
 
 export const cmdRouter: RequestHandler = (req, res, next) => {
-	console.log("Request", JSON.stringify(req.body));
+//	console.log("Request", JSON.stringify(req.body));
 	let _body: RequestBody = req.body;
 	if (!_body || _body.message == undefined || _body.update_id == undefined) {
 		res.json({
@@ -64,7 +79,7 @@ export const cmdRouter: RequestHandler = (req, res, next) => {
 		_body.message.text = _cmdText.replace(_reg, "$1 $2");
 	}
 	let cmd: Array<string> = parseCmd(_body.message.text);
-	console.log(_cmdText);
+	console.log("Command:", _cmdText);
 	if (router[cmd[0]] === undefined) {
 		res.json({
 			success: false

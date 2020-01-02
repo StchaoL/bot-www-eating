@@ -1,6 +1,7 @@
 import express from "express";
 // import path from "path";
 // import logger from "morgan";
+
 import { URL } from "url";
 import { setWebhook } from "./util";
 import { cmdRouter } from "./main";
@@ -22,8 +23,10 @@ const tokenEncoded = Buffer.from(TOKEN).toString("base64");
 console.log("TOKEN", TOKEN);
 console.log("DOMAIN", DOMAIN);
 // app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// app.use(logger('dev'));
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 

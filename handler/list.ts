@@ -28,8 +28,8 @@ const handler: Handler = (req, res, next, ctx) => {
 			let i = 0;
 			stringBuf.push(" *索引*.	*名称*	....	*权重* \n\n");
 			res.options.forEach((e: OptionInterface) => {
-			stringBuf.push(` ${i}. 	${e.name}	....	${e.priority} \n`);
-			i++;
+				stringBuf.push(` ${i}. 	${e.name}	....	${e.priority} \n`);
+				i++;
 			});
 			sendMessage({
 				chat_id: chat.id,
