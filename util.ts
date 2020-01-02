@@ -95,7 +95,7 @@ export const optionSchema = new Schema({
 });
 
 export const botSchema = new Schema({
-	id: { type: Number, index: true },
+	chatId: { type: Number, index: true },
 	options: [optionSchema]
 });
 
@@ -126,15 +126,15 @@ export const parser = (str: string, addMode: boolean): ParsedOptionInterface => 
 		priority: -1
 	}
 	let reg: RegExp;
-	if (addMode) {
-		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*:\s*(\d+).*/, (s, g1, g2, g3, g4) => {
+	if (!addMode) {
+		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2, g3, g4) => {
 			ret.index = Number.parseInt(g1);
 			ret.name = g3;
 			ret.priority = Number.parseInt(g4);
 			return "";
 		});
 	} else {
-		str.replace(/(.+?)\s*:\s*(\d+).*/, (s, g1, g2) => {
+		str.replace(/\/[a-z]*\s+(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2) => {
 			ret.name = g1;
 			ret.priority = Number.parseInt(g2);
 			return "";

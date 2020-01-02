@@ -16,17 +16,20 @@ const handler: Handler = (req, res, next, ctx) => {
 				chat_id: chat.id,
 				text: "有点问题. 它出错了" // i18n
 			});
-			ctx.Logger.error("start: model.findOne(_filter): err:", err);
-			ctx.Logger.error("start: model.findOne(_filter): filter:", _filter);
+			console.error("start: model.findOne(_filter): err:", err);
+			console.error("start: model.findOne(_filter): filter:", _filter);
 		} else if (!res || !Array.isArray(res.options)) {
 			sendMessage({
 				chat_id: chat.id,
-				text: "木有候选项, 先添加一些候选项吧. " + "/add" // i18n
+				text: "木有候选项, 先添加一些候选项吧. " + "/touch" // i18n
 			});
 		} else {
 			let stringBuf: Array<string> = [];
+			let i = 0;
+			stringBuf.push(" *索引*.	*名称*	....	*权重* \n\n");
 			res.options.forEach((e: OptionInterface) => {
-				stringBuf.push(` * ${e.name} .... ${e.priority} \n`);
+				stringBuf.push(` ${i}. 	${e.name}	....	${e.priority} \n`);
+				i++;
 			});
 			sendMessage({
 				chat_id: chat.id,
