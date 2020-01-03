@@ -1,50 +1,32 @@
-import { Handler, RequestBody } from "../cmdRouter";
+import { Handler, RequestBody } from "cmdRouter.ts";
 import Mongoose, { Model } from "mongoose";
-import {
-	DBCurrentListInterface,
-	DBCurrentListDocInterface,
-	currentCollName,
-	currentListSchema
-} from "../database";
-import {sendMessage, ParsedOptionInterface} from "../util"
+import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
 // import update from "./update";
 
-const parser = (str: string): ParsedOptionInterface => {
-	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
-	// let _index = 0
-	if (str.indexOf(":") < 0)
-		str = str + ": 1";
-	let ret: ParsedOptionInterface = {
-		index: -1,
-		name: "",
-		priority: -1
-	};
-	str.replace(/\/[a-z]*\s+(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2) => {
-			ret.name = g1;
-			ret.priority = Number.parseInt(g2);
-			return "";
-	});
-	return ret;
-};
-
-const add: Handler = (req, res, next, ctx) => {
+const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
+		res.json({
+			success: false
+		});
 		next();
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
-	const IModel: Model<DBCurrentListDocInterface> = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
-	const _filter: DBCurrentListInterface = {
+	const IModel: Model<MongoDBModelInterface> = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
+	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	};
 	//	const option = parser(msg.text, body.edited_message === undefined);
-	const option = parser(msg.text);
-	if (option.priority < 0 || option.name === "" || isNaN(option.priority)) {
+	const option = parser(msg.text, true);
+	if (option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
 		sendMessage({
 			chat_id: chat.id,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
+		});
+		res.json({
+			success: true
 		});
 		next();
 		return;
@@ -79,7 +61,10 @@ const add: Handler = (req, res, next, ctx) => {
 		//			return update(req, res, next, ctx);
 			//		}
 	});
+	res.json({
+		success: true
+	});
 	next();
 };
 
-export default add
+export default handler

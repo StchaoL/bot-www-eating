@@ -1,21 +1,13 @@
-import { Handler, RequestBody } from "../cmdRouter";
+import { Handler, RequestBody } from "cmdRouter.ts";
 import Mongoose from "mongoose";
-import {
-	DBCurrentListInterface,
-	OptionInterface,
-	DBCurrentListDocInterface,
-	currentCollName,
-	currentListSchema
-} from "../database";
-import { sendMessage } from "../util";
+import { MongoDBDocumentInterface, sendMessage, OptionInterface, MongoDBModelInterface } from "../util";
 
-
-const list: Handler = (req, res, next, ctx) => {
+const handler: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	// const msg = body.message;
 	const chat = body.message.chat;
-	const model = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
-	const _filter: DBCurrentListInterface = {
+	const model = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
+	const _filter: MongoDBDocumentInterface = {
 		chatId: chat.id
 	};
 	model.findOne(_filter).exec((err, res) => {
@@ -46,7 +38,10 @@ const list: Handler = (req, res, next, ctx) => {
 			});
 		}
 	});
+	res.json({
+		success: true
+	});
 	next();
 };
 
-export default list
+export default handler

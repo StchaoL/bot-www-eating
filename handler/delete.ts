@@ -1,8 +1,14 @@
-import { Handler, RequestBody } from "../main";
+import { Handler, RequestBody } from "../cmdRouter";
 import Mongoose, { Model } from "mongoose";
-import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
+import { sendMessage } from "../util";
+import {
+	currentCollName,
+	currentListSchema,
+	DBCurrentListDocInterface,
+	DBCurrentListInterface
+} from "../database";
 
-const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Model<MongoDBModelInterface>) => {
+const _handler = (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>) => {
 	msgText = msgText.replace(/.*?(\d+).*?/g, "$1");
 	let index = Number.parseInt(msgText);
 	if (isNaN(index)) {
@@ -36,28 +42,22 @@ const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Mod
 		res.options.splice(index, 1);
 		res.save();
 	});
-}
+};
 
-const handler: Handler = (req, res, next, ctx) => {
+const del: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
-		res.json({
-			success: false
-		});
 		next();
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
-	const _filter: MongoDBDocumentInterface = {
+	const _filter: DBCurrentListInterface = {
 		chatId: chat.id
 	};
-	const IModel: Model<MongoDBModelInterface> = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
+	const IModel: Model<DBCurrentListDocInterface> = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
 	_handler(_filter, msg.text, IModel);
-	res.json({
-		success: true
-	});
 	next();
-}
+};
 
-export default handler
+export default del

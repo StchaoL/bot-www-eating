@@ -1,9 +1,35 @@
-import { Handler, RequestBody } from "../main";
+import { Handler, RequestBody } from "../cmdRouter";
 import Mongoose, { Model } from "mongoose";
-import { MongoDBDocumentInterface, MongoDBModelInterface, parser, sendMessage } from "../util";
+import {ParsedOptionInterface, sendMessage} from "../util";
+import {
+	currentCollName, currentListSchema,
+	DBCurrentListDocInterface,
+	DBCurrentListInterface
 
-const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Model<MongoDBModelInterface>) => {
-	const option = parser(msgText, false);
+} from "../database";
+
+const parser = (str: string): ParsedOptionInterface => {
+	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
+	// let _index = 0
+	if (str.indexOf(":") < 0)
+		str = str + ": 1";
+	let ret: ParsedOptionInterface = {
+		index: -1,
+		name: "",
+		priority: -1
+	};
+	let reg: RegExp;
+	str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2, g3, g4) => {
+		ret.index = Number.parseInt(g1);
+		ret.name = g3;
+		ret.priority = Number.parseInt(g4);
+		return "";
+	});
+	return ret;
+};
+
+const _handler = (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>) => {
+	const option = parser(msgText);
 	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
 		sendMessage({
 			chat_id: filter.chatId,
@@ -38,9 +64,9 @@ const _handler = (filter: MongoDBDocumentInterface, msgText: string, IModel: Mod
 		};
 		res.save();
 	});
-}
+};
 
-const handler: Handler = (req, res, next, ctx) => {
+const update: Handler = (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
@@ -51,15 +77,12 @@ const handler: Handler = (req, res, next, ctx) => {
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
-	const _filter: MongoDBDocumentInterface = {
+	const _filter: DBCurrentListInterface = {
 		chatId: chat.id
 	};
-	const IModel: Model<MongoDBModelInterface> = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
+	const IModel: Model<DBCurrentListDocInterface> = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
 	_handler(_filter, msg.text, IModel);
-	res.json({
-		success: true
-	});
 	next();
-}
+};
 
-export default handler
+export default update

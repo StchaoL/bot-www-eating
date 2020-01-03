@@ -2,6 +2,7 @@ import request, { Options, RequestPromise } from "request-promise-native";
 import mongoose, { Document } from "mongoose";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
+import { OptionInterface } from "./database";
 
 // const mongoose = require('mongoose')
 // const config = require('./config')
@@ -10,10 +11,6 @@ import { SentMessage } from "./TelegramType";
 // const fs = require("fs");
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
-const DB_NAME = process.env.DB_NAME || TOKEN;
-const MONGODB_ADDRESS = process.env.MONGODB_ADDRESS || "mongodb://localhost:27017/" + DB_NAME;
-
-const Schema = mongoose.Schema;
 
 interface WebHookConf {
 	url: string;
@@ -44,7 +41,7 @@ export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 		}
 	};
 	return request(_opt);
-}
+};
 
 export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 	let _opt: Options = {
@@ -55,60 +52,6 @@ export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 		}
 	};
 	return request(_opt);
-}
-
-// MongoDB
-
-if (process.env.NODE_ENV === 'development') {
-	mongoose.set('debug', true);
-}
-
-mongoose.set('bufferCommands', false);
-
-function connectMongoDB(address: string) {
-	try {
-		mongoose.connect(address, {
-			useNewUrlParser: true,
-			bufferMaxEntries: 0,
-			autoReconnect: true,
-			poolSize: 5
-		})
-
-		const db = mongoose.connection
-		db.on('error', (error) => {
-			console.log(`MongoDB connecting failed: ${error}`)
-		})
-		db.once('open', () => {
-			console.log('MongoDB connecting succeeded')
-		})
-		return db
-	} catch (error) {
-		console.log(`MongoDB connecting failed: ${error}`)
-	}
-}
-
-export const mongoInstance = connectMongoDB(MONGODB_ADDRESS);
-
-export const optionSchema = new Schema({
-	name: String,
-	priority: Number
-});
-
-export const botSchema = new Schema({
-	chatId: { type: Number, index: true },
-	options: [optionSchema]
-});
-
-export interface MongoDBDocumentInterface {
-	chatId: number;
-	options?: Array<OptionInterface>;
-};
-
-export interface MongoDBModelInterface extends MongoDBDocumentInterface, Document { };
-
-export interface OptionInterface {
-	name: string;
-	priority: number;
 };
 
 export interface ParsedOptionInterface extends OptionInterface {
@@ -124,7 +67,7 @@ export const parser = (str: string, addMode: boolean): ParsedOptionInterface => 
 		index: -1,
 		name: "",
 		priority: -1
-	}
+	};
 	let reg: RegExp;
 	if (!addMode) {
 		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2, g3, g4) => {
@@ -141,4 +84,6 @@ export const parser = (str: string, addMode: boolean): ParsedOptionInterface => 
 		});
 	}
 	return ret;
-}
+};
+
+export

@@ -1,4 +1,4 @@
-import { Handler, RequestBody } from "../main";
+import { Handler, RequestBody } from "../cmdRouter";
 // import Mongoose from "mongoose";
 import { sendMessage } from "../util";
 
@@ -9,28 +9,30 @@ const handler: Handler = (req, res, next, ctx) => {
 	let _helpText = `我可以帮你随机选一个吃饭的地方（解救纠结症的你）  /start
 	但你要预先设置好候选清单  
 	　　教你怎么用这些命令：/help  
-	/ls ：显示候选清单 ，执行后输出结果共三列，分别为 “_索引  名称  权重_”  
-	/touch ：添加一项候选，命令格式为：touch 名称 [权重]  _留空则为默认值 1_   
-	/rm ：删除一项候选，命令格式为：rm 索引    
-	/sed：修改一条候选，命令格式为：sed 索引 => 名称: 权重    
+\t	/ls ：显示候选清单 ，执行后输出结果共三列，分别为 “_索引  名称  权重_”  
+\t	/touch ：添加一项候选，命令格式为：touch 名称 [: 权重]  _留空则为默认值 1_   
+\t	/rm ：删除一项候选，命令格式为：rm 索引    
+\t	/sed：修改一条候选，命令格式为：sed 索引 => 名称: 权重    
+\t	/save: 保存当前候选列表, 命令格式为: save [名称] _若传入名称则另存为, 否则直接保存, 若不存在则自动新建_
+\t	/show: 显示所有的可用候选清单, 命令格式为: show [索引], 若传入索引则会输出此单项的备注, 否则只输出名称
+\t	/alter: 修改一个候选列表, 命令格式为: alter 索引 => 名称: 备注, 备注不得超过200字, 且不能有冒号
+\t	/cd: 切换一个候选列表, 命令格式为: cd [索引 | 名称], 传入数字则为索引, 其它为名称. 若当前列表未保存则会自动保存. 
+\t	/drop: 删除一个候选列表, 命令格式为: drop 索引
 
 PS：
- *所有编辑类命令执行时无回显，除非执行过程中出错*  
- *伪随机数*  
- 每个聊天均可单独维护一张“候选清单”
+\t *所有编辑类命令执行时无回显，除非执行过程中出错*  
+\t *伪随机数*  
+\t 每个聊天均可单独维护一张“候选清单”
 `;
 
 //	var helpText:string = require('querystring').escape(_helpText);
-//	console.log(helpText);	
+//	console.log(helpText);
 	sendMessage({
 		chat_id: chat.id,
 		parse_mode: "Markdown",
 		text: _helpText // i18n
 	});
-	res.json({
-		success: true
-	});
 	next();
-}
+};
 
 export default handler
