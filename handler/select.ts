@@ -34,11 +34,11 @@ const parser = (str: string): number => {
 
 let catalogSelected: CatalogInterface = null;
 
-export const select: Handler = (req, res, next, ctx) => {
+export const select: Handler = async (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	// const msg = body.message;
 	const chatId = body.message.chat.id;
-	const code = databaseOperation(chatId, body.message.text, ctx);
+	const code = await databaseOperation(chatId, body.message.text, ctx);
 	let msgText = "";
 	switch (code) {
 		case 0:
@@ -71,11 +71,11 @@ export const select: Handler = (req, res, next, ctx) => {
 	next();
 };
 
-const databaseOperation = (
+const databaseOperation = async (
 	chatId: number,
 	msgText: string,
 	ctx: CmdRouterInterface
-): number => {
+): Promise<number> => {
 	let unSavedList: Array<OptionInterface> = [];
 	let catalogId: Types.ObjectId;
 	let catalogList: Array<CatalogDocInterface> = [];
@@ -93,7 +93,7 @@ const databaseOperation = (
 			chatId,
 			catalogId: ctx.State.catalogId
 		};
-		currentListModel.findOne(_filter).exec((err, _res) => {
+		await currentListModel.findOne(_filter).exec((err, _res) => {
 			if (err) {
 				console.error("select: model.findOne(_filter): err:", err);
 				console.error("select: model.findOne(_filter): filter:", _filter);
@@ -105,46 +105,48 @@ const databaseOperation = (
 				unSavedList = _res.options;
 				catalogId = _res.catalogId;
 			}
-			if (ret < 0) {
-				return ret;
-			}
 		});
+		if (ret < 0) {
+			return new Promise(res => res(ret));
+		}
 	}
 	// 执行保存
 	if (unSavedList.length > 0) { // 执行保存
-		optionsModel.update({ catalogId }, {
+		await optionsModel.update({ catalogId }, {
 			catalogId: catalogId,
 			options: unSavedList
 		}, (err, raw) => {
 			if (err) {
 				console.error("select: model.findOne(_filter): err:", err);
 				ret = -3;
-				return ret;
 			} else {
 				console.log('Edited list has been saved. ', raw);
 			}
 		})
+		if (ret < 0)
+			return new Promise(res => res(ret));
 	}
 	// 执行切换
-	catalogListModel.findOne({ chatId }).exec((err, _res) => {
+	await catalogListModel.findOne({ chatId }).exec((err, _res) => {
 		if (err) {
 			console.error("select: model.findOne(_filter): err:", err);
 			ret = -4;
-			return ret;
 		} else if (!_res || _res.catalogList.length <= 0) {
 
 		} else {
 			catalogList = _res.catalogList;
 		}
 	});
+	if (ret < 0)
+		return new Promise(res => res(ret));
 	let _index = parser(msgText);
 	if(isNaN(_index) || _index >= catalogList.length) {
 		ret = -5;
-		return ret;
+		return new Promise(res => res(ret));
 	}
 	catalogId = catalogList[_index]._id;
 	catalogSelected = catalogList[_index];
-	optionsModel.findOne({ catalogId }).exec((err, _res) => {
+	await optionsModel.findOne({ catalogId }).exec((err, _res) => {
 		if (err) {
 			console.error("select: optionsModel.findOne: err:", err);
 			ret = -6;
@@ -153,12 +155,11 @@ const databaseOperation = (
 		} else {
 			unSavedList = _res.optionList;
 		}
-		if (ret < 0) {
-			return ret;
-		}
 	});
+	if (ret < 0)
+		return new Promise(res => res(ret));
 
-	currentListModel.update({ chatId }, {
+	await currentListModel.update({ chatId }, {
 			chatId, catalogId, options: unSavedList
 		}, { upsert: true, multi: true, overwrite: true },
 		(err, raw) => {
@@ -169,7 +170,7 @@ const databaseOperation = (
 				console.log("currentListModel.update: raw", raw);
 			}
 	});
-	return ret;
+	return new Promise(res => res(ret));
 };
 
 export default select;

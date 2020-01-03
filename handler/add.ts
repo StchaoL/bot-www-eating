@@ -6,7 +6,7 @@ import {
 	currentCollName,
 	currentListSchema
 } from "../database";
-import {sendMessage, ParsedOptionInterface} from "../util"
+import {sendMessage, ParsedOptionInterface, ValidateType, validate} from "../util"
 // import update from "./update";
 
 const parser = (str: string): ParsedOptionInterface => {
@@ -50,6 +50,9 @@ const add: Handler = (req, res, next, ctx) => {
 		return;
 	}
 	console.log("Touch options:", JSON.stringify(option));
+	option.name = validate(option.name, ValidateType.OptionName);
+	option.priority = validate(option.priority, ValidateType.OptionPriority);
+	
 	IModel.findOne(_filter).exec((err, _res) => {
 		if (err) {
 			sendMessage({
@@ -67,6 +70,7 @@ const add: Handler = (req, res, next, ctx) => {
 				}]
 			});
 			model.save();
+			ctx.State.edited = true;
 		// } else if (body.edited_message === undefined) {
 		} else {
 			_res.options.push({
@@ -74,6 +78,7 @@ const add: Handler = (req, res, next, ctx) => {
 				priority: option.priority
 			});
 			_res.save();
+			ctx.State.edited = true;
 		}
 			//		} else {
 		//			return update(req, res, next, ctx);

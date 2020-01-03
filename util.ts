@@ -58,32 +58,29 @@ export interface ParsedOptionInterface extends OptionInterface {
 	index: number;
 }
 
-export const parser = (str: string, addMode: boolean): ParsedOptionInterface => {
-	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
-	// let _index = 0
-	if (str.indexOf(":") < 0)
-		str = str + ": 1";
-	let ret: ParsedOptionInterface = {
-		index: -1,
-		name: "",
-		priority: -1
-	};
-	let reg: RegExp;
-	if (!addMode) {
-		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2, g3, g4) => {
-			ret.index = Number.parseInt(g1);
-			ret.name = g3;
-			ret.priority = Number.parseInt(g4);
-			return "";
-		});
-	} else {
-		str.replace(/\/[a-z]*\s+(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2) => {
-			ret.name = g1;
-			ret.priority = Number.parseInt(g2);
-			return "";
-		});
-	}
-	return ret;
-};
+export enum ValidateType {
+	CatalogName = 0,
+	CatalogNote,
+	OptionName,
+	OptionPriority
+}
 
-export
+export const validate = <T>(val: T, type: ValidateType):T {
+	let _ret: T = val;
+	switch(type) {
+		case ValidateType.CatalogName:
+		case ValidateType.OptionName:
+			if ((val as unknown as string).length > 30)
+				(<string><unknown>_ret) = (<string><unknown>val).substring(0, 30);
+				break;
+		case ValidateType.CatalogNote:
+			if((<string><unknown>val).length > 200)
+				(<string><unknown>_ret) = (<string><unknown>val).substring(0, 140);
+				break;
+		case ValidateType.OptionPriority:
+			if((<number><unknown>val) > 65535)
+				(<number><unknown>_ret) = 65535;
+				break;
+	}
+	return _ret;
+}

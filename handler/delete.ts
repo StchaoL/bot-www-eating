@@ -8,17 +8,28 @@ import {
 	DBCurrentListInterface
 } from "../database";
 
-const _handler = (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>) => {
+/**
+ * 
+ * 错误码
+ * "命令传入的参数错误"	-1
+ * "读取数据库时发生错误"	-2
+ * 空列表，那还删除个屁哇	-3
+ * 传入的索引越界	-4
+ */
+
+const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>): Promise<number> => {
 	msgText = msgText.replace(/.*?(\d+).*?/g, "$1");
 	let index = Number.parseInt(msgText);
+	let _ret = 0;
 	if (isNaN(index)) {
 		sendMessage({
 			chat_id: filter.chatId,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
 		});
-		return;
+		_ret = -1;
+		return new Promise(res => res(_ret));
 	}
-	IModel.findOne(filter).exec((err, res) => {
+	await IModel.findOne(filter).exec((err, res) => {
 		if (err) {
 			sendMessage({
 				chat_id: filter.chatId,
@@ -26,25 +37,30 @@ const _handler = (filter: DBCurrentListInterface, msgText: string, IModel: Model
 			});
 			console.error("start: model.findOne(_filter): err:", err);
 			console.error("start: model.findOne(_filter): filter:", filter);
+			_ret = -2;
 			return;
 		}
 		if (!res || !Array.isArray(res.options)) {
+			_ret = -3;
 			return sendMessage({
 				chat_id: filter.chatId,
 				text: "木有候选项, 先添加一些候选项吧. " + "/touch" // i18n
 			});
 		}
-		if (index >= res.options.length)
+		if (index >= res.options.length) {
+			_ret = -4;
 			return sendMessage({
 				chat_id: filter.chatId,
 				text: "我寻思你发的消息应该有点问题, 你不老实啊" // i18n
 			});
+		}
 		res.options.splice(index, 1);
 		res.save();
 	});
+	return new Promise(res => res(_ret));
 };
 
-const del: Handler = (req, res, next, ctx) => {
+const del: Handler = async (req, res, next, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
@@ -56,7 +72,10 @@ const del: Handler = (req, res, next, ctx) => {
 		chatId: chat.id
 	};
 	const IModel: Model<DBCurrentListDocInterface> = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
-	_handler(_filter, msg.text, IModel);
+	const code = await _handler(_filter, msg.text, IModel);
+	if (code >= 0) {
+		ctx.State.edited = true;
+	}
 	next();
 };
 
