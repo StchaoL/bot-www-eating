@@ -27,7 +27,7 @@ interface ParsedCatalogInterface {
 const parser = (str: string): ParsedCatalogInterface => {
 	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
 	// let _index = 0
-	if (str.indexOf(":") < 0)
+	if (str.indexOf("：") < 0 && str.indexOf(":") < 0)
 		str = str + ":  ";
 	let ret: ParsedCatalogInterface = {
 		index: -1,
