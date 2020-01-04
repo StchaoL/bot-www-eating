@@ -19,8 +19,7 @@ export const currentCollName = "cache";
 
 const optionSchema = new Schema({
 	name: String,
-	priority: Number,
-	catalogId: { type: ObjectId, default: 0, index: true }
+	priority: Number
 });
 
 const catalogSchema = new Schema({
