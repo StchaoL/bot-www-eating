@@ -65,7 +65,7 @@ export enum ValidateType {
 	OptionPriority
 }
 
-export const validate = <T>(val: T, type: ValidateType):T {
+export const validate = <T>(val: T, type: ValidateType):T => {
 	let _ret: T = val;
 	switch(type) {
 		case ValidateType.CatalogName:

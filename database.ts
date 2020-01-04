@@ -88,12 +88,12 @@ export class Database {
 			mongoose.set('debug', true);
 		}
 		mongoose.set('bufferCommands', false);
-		this.mongoInstance = this.connectMongoDB(this.MONGODB_ADDRESS);
+		// this.mongoInstance = this.connectMongoDB(this.MONGODB_ADDRESS);
 	}
 
-	public connectMongoDB(address: string) {
+	public async connectMongoDB() {
 		try {
-			mongoose.connect(address, {
+			await mongoose.connect(this.MONGODB_ADDRESS, {
 				useNewUrlParser: true,
 				bufferMaxEntries: 0,
 				autoReconnect: true,
@@ -107,9 +107,11 @@ export class Database {
 			db.once('open', () => {
 				console.log('MongoDB connecting succeeded');
 			});
-			return db
+			this.mongoInstance = db;
+			return Promise.resolve(db);
 		} catch (error) {
 			console.error(`MongoDB connecting failed: ${error}`);
+			return Promise.reject(error);
 		}
 	}
 }

@@ -82,6 +82,8 @@ export class CmdRouter {
 
 	constructor() {
 		const _db = new Database();
+		if (_db.mongoInstance == null)
+			_db.connectMongoDB();
 		this.database = _db.mongoInstance;
 		const model = _db.mongoInstance.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
 		model.find(null,  {

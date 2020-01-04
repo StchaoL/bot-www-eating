@@ -46,7 +46,7 @@ const show: Handler = async (req, res, ctx) => {
 	}
 	sendMessage({
 		chat_id: chatId,
-		text: strBuffer.join("\n");
+		text: strBuffer.join("\n")
 	})
 }
 
