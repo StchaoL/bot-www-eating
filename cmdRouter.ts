@@ -160,13 +160,9 @@ export class CmdRouter {
 		}
 		let _state: currentState = null;
 		let _chatId = _body.message.chat.id;
-		for(let s in this.stateTable) {
+		for(let s=0, len=this.stateTable.length; s<len; s++) {
 			if (this.stateTable[s].chatId == _chatId) {
-				_state = {
-					chatId: _chatId,
-					catalogId: this.stateTable[s].catalogId,
-					edited: false
-				};
+				_state = this.stateTable[s];
 				break;
 			}
 		}
@@ -179,6 +175,7 @@ export class CmdRouter {
 			this.stateTable.push(_state);
 		}
 		console.log("Command: ", cmd[0]);
+		console.log("Current chat state:", _state);
 		this.router[cmd[0]](req, res, {
 			Command: cmd,
 			DB: this.database,
