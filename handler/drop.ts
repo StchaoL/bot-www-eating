@@ -94,7 +94,7 @@ const deleteOptions = async (
 	const _filter: DBOptionListInterface = {
 		catalogId
 	};
-	let rmRes = undefined;
+	let rmRes:any = undefined;
 	await optionsModel.deleteMany(_filter).exec().then(res => {
 		rmRes = res;
 	}).catch(err => {
