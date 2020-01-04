@@ -65,7 +65,7 @@ const select: Handler = async (req, res, ctx) => {
 			msgText = "写入数据库时发生了错误, 操作失败";
 			break;
 		default:
-			console.error(code);
+			console.error("Unexpected code:", code);
 			msgText = "未预料的错误";
 	}
 	sendMessage({
@@ -94,15 +94,15 @@ const databaseOperation = async (
 
 	// 切换时不自动保存
 	// 执行切换
-	await catalogListModel.findOne({ chatId }).exec((err, _res) => {
-		if (err) {
-			console.error("select: model.findOne(_filter): err:", err);
-			ret = -4;
-		} else if (!_res || _res.catalogList.length <= 0) {
+	await catalogListModel.findOne({ chatId }).exec().then((_res) => {
+		if (!_res || _res.catalogList.length <= 0) {
 			ret = -9
 		} else {
 			catalogList = _res.catalogList;
 		}
+	}).catch(err => {
+		console.error("select: model.findOne(_filter): err:", err);
+		ret = -4;
 	});
 	if (ret < 0)
 		return new Promise(res => res(ret));
@@ -113,29 +113,26 @@ const databaseOperation = async (
 	}
 	catalogId = catalogList[_index]._id;
 	catalogSelected = catalogList[_index];
-	await optionsModel.findOne({ catalogId }).exec((err, _res) => {
-		if (err) {
-			console.error("select: optionsModel.findOne: err:", err);
-			ret = -6;
-		} else if (!_res) {
+	await optionsModel.findOne({ catalogId }).exec().then((_res) => {
+		if (!_res) {
 			ret = -7;
 		} else {
 			unSavedList = _res.optionList;
 		}
+	}).catch(err => {
+		console.error("select: optionsModel.findOne: err:", err);
+		ret = -6;
 	});
 	if (ret < 0)
 		return new Promise(res => res(ret));
 
 	await currentListModel.update({ chatId }, {
 			chatId, catalogId, options: unSavedList
-		}, { upsert: true, multi: true, overwrite: true },
-		(err, raw) => {
-			if (err) {
-				ret = -8;
-				console.error("currentListModel.update: err:", err);
-			} else {
-				console.log("currentListModel.update: raw", raw);
-			}
+		}, { upsert: true, multi: true, overwrite: true }).exec().then((raw) => {
+			console.log("currentListModel.update: raw", raw);
+	}).catch(err => {
+		ret = -8;
+		console.error("currentListModel.update: err:", err);
 	});
 	if (ctx.State) {
 		ctx.State.edited = false;

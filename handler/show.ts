@@ -53,19 +53,19 @@ const show: Handler = async (req, res, ctx) => {
 const databaseOperation = async (chatId: number, database: Mongoose.Connection): Promise<Array<CatalogDocInterface>> => {
 const model= database.model<DBCatalogListDocInterface>(catalogCollName, catalogListSchema);
 	let _ret:Promise<Array<CatalogDocInterface>> = null;
-	await model.findOne({ chatId }).exec((err, res) => {
-		if (err) {
-			console.error("start: model.findOne(_filter): err:", err);
-			console.error("start: model.findOne(_filter): filter:", chatId);
-			_ret = new Promise((_res, rej) => rej(-1));
-			return;
-		} else if (!res || !Array.isArray(res.catalogList)) {
-			_ret = new Promise((_res, rej) => rej(-2));
+	await model.findOne({ chatId }).exec().then((res) => {
+		if (!res || !Array.isArray(res.catalogList)) {
+			_ret = Promise.reject(-2);
 			return;
 		} else {
 			_ret = new Promise(_res => _res(res.catalogList));
 			return;
 		}
+	}).catch(err => {
+		console.error("start: model.findOne(_filter): err:", err);
+		console.error("start: model.findOne(_filter): filter:", chatId);
+		_ret = Promise.reject(-1);
+		return;
 	});
 	return _ret;
 }

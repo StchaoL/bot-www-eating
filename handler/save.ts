@@ -38,7 +38,7 @@ const save: Handler = async (req, res, ctx) => {
 	let cmdParam = parser(msg.text);
 	let catalogId: Types.ObjectId = null;
 	let saveAs = false;
-	let code:number = 1;
+	let code:number = 0;
 
 	// 处理命令, 命令决定 Catalog 的名称以及是否新建
 	let catalogName = ""
@@ -89,7 +89,7 @@ const save: Handler = async (req, res, ctx) => {
 			resMsgText = "保存列表失败";
 			break;
 		default:
-			console.error(code);
+			console.error("Unexpected code:", code);
 			resMsgText = "未预料的错误";
 	}
 	if (code >= 0)
@@ -119,17 +119,17 @@ const saveOptions = async (
 		chatId,
 		catalogId
 	};
-	await currentListModel.findOne(_filter).exec((err, _res) => {
-		if (err) {
-			console.error("Save: currentListModel.findOne(_filter): err:", err);
-			console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
-			ret = -1;
-		} else if (!_res) {
+	await currentListModel.findOne(_filter).exec().then((_res) => {
+		if (!_res) {
 			console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
 			ret = -2;
 		} else {
 			unSavedList = _res.options;
 		}
+	}).catch(err => {
+		console.error("Save: currentListModel.findOne(_filter): err:", err);
+		console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
+		ret = -1;
 	});
 	if (ret < 0) {
 		return Promise.resolve(ret);
@@ -139,14 +139,12 @@ const saveOptions = async (
 		await optionsModel.update({ catalogId }, {
 			catalogId: catalogId,
 			options: unSavedList
-		}, {upsert: true}, (err, raw) => {
-			if (err) {
-				console.error("Save: optionsModel.update(_filter): err:", err);
-				ret = -3;
-			} else {
-				console.log('Edited list has been saved. ', raw);
-			}
-		})
+		}, {upsert: true}).exec().then((raw) => {
+			console.log('Edited list has been saved. ', raw);
+		}).catch(err => {
+			console.error("Save: optionsModel.update(_filter): err:", err);
+			ret = -3;
+		});
 		if (ret < 0)
 			return Promise.resolve(ret);
 	// }
@@ -163,11 +161,8 @@ const saveCatalog = async (
 	let ret = 0;
 	const catalogListModel: Mongoose.Model<DBCatalogListDocInterface> =
 		database.model(catalogCollName, catalogListSchema);
-	await catalogListModel.findOne({ chatId }).exec(async (err, _res) => {
-		if (err) {
-			console.error("Save: optionsModel.update(_filter): err:", err);
-			ret = -4;
-		} else if(!_res || !Array.isArray(_res.catalogList)) {
+	await catalogListModel.findOne({ chatId }).exec().then(async (_res) => {
+		if(!_res || !Array.isArray(_res.catalogList)) {
 			let iModel = new catalogListModel({
 				chatId,
 				catalogList: [{
@@ -198,7 +193,10 @@ const saveCatalog = async (
 				ret = -6;
 			}
 		}
-	})
+	}).catch(err => {
+		console.error("Save: optionsModel.update(_filter): err:", err);
+		ret = -4;
+	});
 	if (ret < 0)
 		return Promise.reject(ret);
 

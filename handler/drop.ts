@@ -72,7 +72,7 @@ const drop: Handler = async (req, res, ctx) => {
 			resMsgText = "删除清单时出错, 但是放心, 最后我还是把它给删除了";
 			break;
 		default:
-			console.error(code);
+			console.error("Unexpected code:", code);
 			resMsgText = "未预料的错误";
 	}
 	if (code >= 0)
