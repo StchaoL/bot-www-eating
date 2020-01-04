@@ -29,17 +29,7 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 		_ret = -1;
 		return new Promise(res => res(_ret));
 	}
-	await IModel.findOne(filter).exec((err, res) => {
-		if (err) {
-			sendMessage({
-				chat_id: filter.chatId,
-				text: "有点问题. 它出错了" // i18n
-			});
-			console.error("start: model.findOne(_filter): err:", err);
-			console.error("start: model.findOne(_filter): filter:", filter);
-			_ret = -2;
-			return;
-		}
+	await IModel.findOne(filter).exec().then(res => {
 		if (!res || !Array.isArray(res.options)) {
 			_ret = -3;
 			return sendMessage({
@@ -56,6 +46,14 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 		}
 		res.options.splice(index, 1);
 		res.save();
+	}).catch(err => {
+		sendMessage({
+				chat_id: filter.chatId,
+				text: "有点问题. 它出错了" // i18n
+		});
+		console.error("start: model.findOne(_filter): err:", err);
+		console.error("start: model.findOne(_filter): filter:", filter);
+		_ret = -2;
 	});
 	return new Promise(res => res(_ret));
 };

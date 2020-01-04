@@ -11,7 +11,6 @@ import {
 	catalogListSchema,
 	optionCollName,
 	optionsListSchema,
-	DBCurrentListInterface,
 	CatalogDocInterface,
 	CatalogInterface,
 	OptionInterface

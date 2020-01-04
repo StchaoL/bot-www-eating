@@ -94,11 +94,14 @@ const deleteOptions = async (
 	const _filter: DBOptionListInterface = {
 		catalogId
 	};
-	let rmRes = await optionsModel.deleteMany(_filter, err => {
+	let rmRes = undefined;
+	await optionsModel.deleteMany(_filter).exec().then(res => {
+		rmRes = res;
+	}).catch(err => {
 		console.error("optionsModel.deleteMany: err:", err);
 		ret = -5;
 	});
-	if (ret >= 0)
+	if (ret >= 0 && ret != undefined)
 		ret = rmRes.deletedCount;
 	return Promise.resolve(ret);
 };
@@ -112,13 +115,7 @@ const deleteCatalog = async (
 	let ret = 0;
 	const catalogListModel: Mongoose.Model<DBCatalogListDocInterface> =
 		database.model(catalogCollName, catalogListSchema);
-	await catalogListModel.findOne({ chatId }).exec(async (err, res) => {
-		if (err) {
-			console.error("drop: catalogListModel.findOne: err:", err);
-			console.error("drop: catalogListModel.findOne: filter:", { chatId });
-			ret = -1;
-			return;
-		}
+	await catalogListModel.findOne({ chatId }).exec().then(async res => {
 		if (!res || !Array.isArray(res.catalogList)) {
 			ret = -2;
 			return;
@@ -134,6 +131,10 @@ const deleteCatalog = async (
 			console.error("Save: catalogListModel.save(): err", err);
 			ret = -4;
 		}
+	}).catch(err => {
+		console.error("drop: catalogListModel.findOne: err:", err);
+		console.error("drop: catalogListModel.findOne: filter:", { chatId });
+		ret = -1;
 	});
 	if (ret < 0)
 		return Promise.reject(ret);

@@ -34,7 +34,7 @@ const show: Handler = async (req, res, ctx) => {
 	let strBuffer: Array<string> = [];
 	if (!cmdParam) {
 		strBuffer.push("*索引\t名称*\n");
-		for (let i in catalogList) {
+		for (let i=0, len = catalogList.length; i < len; i++) {
 			strBuffer.push(`${i}\t${catalogList[i].name}`);
 		}
 	} else {
@@ -46,6 +46,7 @@ const show: Handler = async (req, res, ctx) => {
 	}
 	sendMessage({
 		chat_id: chatId,
+		parse_mode: "Markdown",
 		text: strBuffer.join("\n")
 	})
 }

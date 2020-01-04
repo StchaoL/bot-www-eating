@@ -51,15 +51,8 @@ const add: Handler = (req, res, ctx) => {
 	option.name = validate(option.name, ValidateType.OptionName);
 	option.priority = validate(option.priority, ValidateType.OptionPriority);
 	
-	IModel.findOne(_filter).exec((err, _res) => {
-		if (err) {
-			sendMessage({
-				chat_id: chat.id,
-				text: "有点问题. 它出错了" // i18n
-			});
-			console.error("start: model.findOne(_filter): err:", err);
-			console.error("start: model.findOne(_filter): filter:", _filter);
-		} else if (!_res || !Array.isArray(_res.options)) {
+	IModel.findOne(_filter).exec().then(_res => {
+		if (!_res || !Array.isArray(_res.options)) {
 			let model = new IModel({
 				chatId: chat.id,
 				options: [{
@@ -81,6 +74,13 @@ const add: Handler = (req, res, ctx) => {
 			//		} else {
 		//			return update(req, res, next, ctx);
 			//		}
+	}).catch(err => {
+		sendMessage({
+				chat_id: chat.id,
+				text: "有点问题. 它出错了" // i18n
+			});
+		console.error("start: model.findOne(_filter): err:", err);
+		console.error("start: model.findOne(_filter): filter:", _filter);
 	});
 };
 

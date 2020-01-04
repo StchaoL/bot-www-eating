@@ -43,8 +43,8 @@ const save: Handler = async (req, res, ctx) => {
 	// 处理命令, 命令决定 Catalog 的名称以及是否新建
 	let catalogName = ""
 	if (!cmdParam) { //空字符串或者 undefined
-		catalogName = new Buffer(Date.now().toString()).toString("base64");
-		catalogName = "清单" + catalogName.substring(catalogName.length - 9, 7);
+		catalogName = Buffer.from(Date.now().toString()).toString("base64");
+		catalogName = "清单" + catalogName.substring(catalogName.length - 9, catalogName.length - 2);
 	} else {
 		saveAs = true;
 		catalogName = cmdParam;
@@ -116,8 +116,7 @@ const saveOptions = async (
 
 	// 尝试保存状态
 	const _filter: DBCurrentListInterface = {
-		chatId,
-		catalogId
+		chatId
 	};
 	await currentListModel.findOne(_filter).exec().then((_res) => {
 		if (!_res) {
