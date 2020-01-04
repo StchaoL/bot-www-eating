@@ -127,6 +127,7 @@ const saveOptions = async (
 			ret = -2;
 		} else {
 			_res.catalogId = catalogId;
+			_res.save();
 			unSavedList = _res.options;
 		}
 	}).catch(err => {
@@ -139,9 +140,12 @@ const saveOptions = async (
 	}
 	// 执行保存
 	// if (unSavedList.length > 0) { // 执行保存, 即使是空列表也保存, 因为已经保存了 Catalog
+	console.log("unSavedList", unSavedList); // 是不是有异步问题?
 		await optionsModel.update({ catalogId }, {
-			catalogId: catalogId,
-			options: unSavedList
+			$set: {
+				catalogId: catalogId,
+				options: unSavedList
+			}
 		}, {upsert: true}).exec().then((raw) => {
 			console.log('Edited list has been saved. ', raw);
 		}).catch(err => {

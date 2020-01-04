@@ -148,7 +148,11 @@ const databaseOperation = async (
 		return new Promise(res => res(ret));
 
 	await currentListModel.update({ chatId }, {
-			chatId, catalogId, options: unSavedList
+			$set: {
+				chatId,
+				catalogId,
+				options: unSavedList
+			}
 		}, { upsert: true, multi: true, overwrite: true }).exec().then((raw) => {
 			console.log("currentListModel.update: raw", raw);
 	}).catch(err => {

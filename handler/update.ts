@@ -1,6 +1,6 @@
 import { Handler, RequestBody } from "../cmdRouter";
-import Mongoose, { Model } from "mongoose";
-import {ParsedOptionInterface, sendMessage} from "../util";
+import { Model } from "mongoose";
+import {ParsedOptionInterface, sendMessage, validate, ValidateType} from "../util";
 import {
 	currentCollName, currentListSchema,
 	DBCurrentListDocInterface,
@@ -27,7 +27,7 @@ const parser = (str: string): ParsedOptionInterface => {
 		priority: -1
 	};
 	let reg: RegExp;
-	str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:：]{0,1}\s*(\d*).*/, (s, g1, g2, g3, g4) => {
+	str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:：]\s*(\d*).*/, (s, g1, g2, g3, g4) => {
 		ret.index = Number.parseInt(g1);
 		ret.name = g3;
 		ret.priority = Number.parseInt(g4);
@@ -51,6 +51,8 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 			res(_ret);
 		});
 	}
+	option.name = validate(option.name, ValidateType.OptionName);
+	option.priority = validate(option.priority, ValidateType.OptionPriority);
 	await IModel.findOne(filter).exec((err, res) => {
 		if (err) {
 			sendMessage({
@@ -70,13 +72,14 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 			_ret = -3;
 			return;
 		}
-		if (option.index >= res.options.length)
+		if (option.index >= res.options.length) {
 			sendMessage({
 				chat_id: filter.chatId,
 				text: "我寻思你发的消息应该有点问题, 你不老实啊" // i18n
 			});
 			_ret = -4;
 			return;
+		}
 		res.options[option.index] = {
 			name: option.name,
 			priority: option.priority

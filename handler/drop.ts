@@ -75,8 +75,10 @@ const drop: Handler = async (req, res, ctx) => {
 			console.error("Unexpected code:", code);
 			resMsgText = "未预料的错误";
 	}
-	if (code >= 0)
+	if (code >= 0) {
 		ctx.State.edited = false;
+		ctx.State.catalogId = null;
+	}
 	sendMessage({
 		chat_id: chatId,
 		text: resMsgText

@@ -22,6 +22,7 @@ import alter from './handler/alter';
 import select from './handler/select';
 import drop from './handler/drop';
 import save from './handler/save';
+import clear from "./handler/clear";
 
 // const logger = log4js.getLogger();
 
@@ -73,7 +74,8 @@ export class CmdRouter {
 		"alter": alter,
 		"drop": drop,
 		"save": save,
-		"cd": select
+		"cd": select,
+		"new": clear
 	};
 
 	private stateTable: Array<currentState> = [];

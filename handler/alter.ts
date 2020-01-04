@@ -1,10 +1,12 @@
 import { Handler, RequestBody } from "../cmdRouter";
 import Mongoose, { Model } from "mongoose";
-import {ParsedOptionInterface, sendMessage} from "../util";
+import {ParsedOptionInterface, sendMessage, validate, ValidateType} from "../util";
 import {
-	currentCollName, currentListSchema,
-	DBCurrentListDocInterface,
-	DBCurrentListInterface
+	CatalogDocInterface,
+	DBCatalogListInterface,
+	DBCatalogListDocInterface,
+	catalogCollName,
+	catalogListSchema
 
 } from "../database";
 
@@ -16,51 +18,55 @@ import {
  * 传入的索引越界	-4
  */
 
-const parser = (str: string): ParsedOptionInterface => {
+interface ParsedCatalogInterface {
+	index: number;
+	name: string;
+	note: string;
+}
+
+const parser = (str: string): ParsedCatalogInterface => {
 	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
 	// let _index = 0
 	if (str.indexOf(":") < 0)
-		str = str + ": 1";
-	let ret: ParsedOptionInterface = {
+		str = str + ":  ";
+	let ret: ParsedCatalogInterface = {
 		index: -1,
 		name: "",
-		priority: -1
+		note: ""
 	};
 	let reg: RegExp;
-	str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:：]{0,1}\s*(\d*).*/, (s, g1, g2, g3, g4) => {
+	str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:：]\s*(.*)/, (s, g1, g2, g3, g4) => {
 		ret.index = Number.parseInt(g1);
 		ret.name = g3;
-		ret.priority = Number.parseInt(g4);
+		ret.note = g4;
 		return "";
 	});
 	return ret;
 };
 
-const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>): Promise<number> => {
+const _handler = async (filter: DBCatalogListInterface, msgText: string, IModel: Model<DBCatalogListDocInterface>): Promise<number> => {
 	const option = parser(msgText);
 	let _ret = 0;
-	if (isNaN(option.priority))
-		option.priority = 1;
-	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index)) {
+	if (option.index < 0 || option.name === "" || isNaN(option.index)) {
 		sendMessage({
 			chat_id: filter.chatId,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
 		});
 		_ret = -1;
-		return new Promise((res, rej) => {
-			res(_ret);
-		});
+		return Promise.resolve(_ret);
 	}
+	option.name = validate(option.name, ValidateType.CatalogName);
+	option.note = validate(option.note, ValidateType.CatalogNote);
 	await IModel.findOne(filter).exec().then(res => {
-		if (!res || !Array.isArray(res.options)) {
+		if (!res || !Array.isArray(res.catalogList)) {
 			sendMessage({
 				chat_id: filter.chatId,
-				text: "木有候选项, 先添加一些候选项吧. " + "/touch" // i18n
+				text: "木有已保存的清单, 先保存一份清单吧. /save" // i18n
 			});
 			_ret = -3;
 			return;
 		}
-		if (option.index >= res.options.length) {
+		if (option.index >= res.catalogList.length) {
 			sendMessage({
 				chat_id: filter.chatId,
 				text: "我寻思你发的消息应该有点问题, 你不老实啊" // i18n
@@ -68,9 +74,9 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 			_ret = -4;
 			return;
 		}
-		res.options[option.index] = {
+		res.catalogList[option.index] = <CatalogDocInterface><unknown>{
 			name: option.name,
-			priority: option.priority
+			note: option.note
 		};
 		res.save();
 	}).catch(err => {
@@ -87,7 +93,7 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 	});
 };
 
-const update: Handler = async (req, res, ctx) => {
+const alter: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
@@ -97,14 +103,14 @@ const update: Handler = async (req, res, ctx) => {
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
-	const _filter: DBCurrentListInterface = {
+	const _filter: DBCatalogListInterface = {
 		chatId: chat.id
 	};
-	const IModel: Model<DBCurrentListDocInterface> = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
+	const IModel: Model<DBCatalogListDocInterface> = ctx.DB.model<DBCatalogListDocInterface>(catalogCollName, catalogListSchema);
 	let code = await _handler(_filter, msg.text, IModel);
 	if(code >= 0) {
 		ctx.State.edited = true;
 	}
 };
 
-export default update
+export default alter
