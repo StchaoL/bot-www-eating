@@ -144,7 +144,7 @@ const saveOptions = async (
 		await optionsModel.update({ catalogId }, {
 			$set: {
 				catalogId: catalogId,
-				options: unSavedList
+				optionList: unSavedList
 			}
 		}, {upsert: true}).exec().then((raw) => {
 			console.log('Edited list has been saved. ', raw);
