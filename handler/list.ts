@@ -10,7 +10,7 @@ import {
 import { sendMessage } from "../util";
 
 
-const list: Handler = (req, res, next, ctx) => {
+const list: Handler = (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	// const msg = body.message;
 	const chat = body.message.chat;
@@ -46,7 +46,6 @@ const list: Handler = (req, res, next, ctx) => {
 			});
 		}
 	});
-	next();
 };
 
 export default list

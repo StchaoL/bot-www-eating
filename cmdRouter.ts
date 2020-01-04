@@ -53,7 +53,7 @@ export interface CmdRouterInterface {
 // }
 
 export interface Handler {
-	(req: Request, res: Response, next: NextFunction, context: CmdRouterInterface): any;
+	(req: Request, res: Response, context: CmdRouterInterface): any;
 }
 
 export interface RequestBody extends Update { }
@@ -121,7 +121,7 @@ export class CmdRouter {
 	public main: RequestHandler = (req, res, next) => {
 		//	console.log("Request", JSON.stringify(req.body));
 		let _body: RequestBody = req.body;
-		if (!_body || _body.message == undefined || _body.update_id == undefined) {
+		if (!_body || _body.message == undefined || _body.update_id == undefined || !_body.message.text) {
 			console.error(`RequestError: ${JSON.stringify(req.body)}`);
 			next();
 			return;
@@ -160,10 +160,11 @@ export class CmdRouter {
 			this.stateTable.push(_state)
 		}
 		console.log("Command: ", cmd[0]);
-		this.router[cmd[0]](req, res, next, {
+		this.router[cmd[0]](req, res, {
 			Command: cmd,
 			DB: this.database,
 			State: _state
 		});
+		next();
 	}
 }

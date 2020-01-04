@@ -27,11 +27,10 @@ const parser = (str: string): ParsedOptionInterface => {
 	return ret;
 };
 
-const add: Handler = (req, res, next, ctx) => {
+const add: Handler = (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
-		next();
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
@@ -46,7 +45,6 @@ const add: Handler = (req, res, next, ctx) => {
 			chat_id: chat.id,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
 		});
-		next();
 		return;
 	}
 	console.log("Touch options:", JSON.stringify(option));
@@ -84,7 +82,6 @@ const add: Handler = (req, res, next, ctx) => {
 		//			return update(req, res, next, ctx);
 			//		}
 	});
-	next();
 };
 
 export default add

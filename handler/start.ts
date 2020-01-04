@@ -8,7 +8,7 @@ import {
 	DBCurrentListInterface
 } from "../database";
 
-const start: Handler = (req, res, next, ctx) => {
+const start: Handler = (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg)
@@ -54,7 +54,6 @@ const start: Handler = (req, res, next, ctx) => {
 			});
 		}
 	});
-	next();
 };
 
 export default start

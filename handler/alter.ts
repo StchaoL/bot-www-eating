@@ -39,7 +39,9 @@ const parser = (str: string): ParsedOptionInterface => {
 const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel: Model<DBCurrentListDocInterface>): Promise<number> => {
 	const option = parser(msgText);
 	let _ret = 0;
-	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index) || isNaN(option.priority)) {
+	if (isNaN(option.priority))
+		option.priority = 1;
+	if (option.index < 0 || option.priority < 0 || option.name === "" || isNaN(option.index)) {
 		sendMessage({
 			chat_id: filter.chatId,
 			text: "我寻思你发的消息的格式应该有点问题, 你不老实啊" // i18n
@@ -68,13 +70,14 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 			_ret = -3;
 			return;
 		}
-		if (option.index >= res.options.length)
+		if (option.index >= res.options.length) {
 			sendMessage({
 				chat_id: filter.chatId,
 				text: "我寻思你发的消息应该有点问题, 你不老实啊" // i18n
 			});
 			_ret = -4;
 			return;
+		}
 		res.options[option.index] = {
 			name: option.name,
 			priority: option.priority
@@ -86,14 +89,13 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 	});
 };
 
-const update: Handler = async (req, res, next, ctx) => {
+const update: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
 		res.json({
 			success: false
 		});
-		next();
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
@@ -105,7 +107,6 @@ const update: Handler = async (req, res, next, ctx) => {
 	if(code >= 0) {
 		ctx.State.edited = true;
 	}
-	next();
 };
 
 export default update

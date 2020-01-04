@@ -18,166 +18,197 @@ import {
 } from "../database";
 
 /** 错误码
- * "已修改, 但查询 Current 表时发生错误" -1
- * "已修改, 但查询 Current 表为空" -2
- * "已修改, 但尝试保存 Current 到 Option 时失败" -3
+ * "查询 Current 表时发生错误" -1
+ * "查询 Current 表为空" -2
+ * "尝试保存 Current 到 Option 时失败" -3
  * "查询 Catalog 表时发生错误" -4
- * "命令传入的索引值错误" -5
- * "获取 catalogId 后, 查询 Option 表时出错" -6
- * "获取 catalogId 后, 查询 Option 表为空(但这应当是不可能发生的)" -7
- * "写入 Current 时发生错误" -8
+ * "新建 Catalog 记录时失败" -5
+ * "插入 Catalog 记录时失败" -6
  */
 
-const parser = (str: string): number => {
-	return parseInt(str.replace(/.*?(\d+).*?/g, "$1"));
+const parser = (str: string): string => {
+	str = str.replace(/\s{1,}/g, " ");
+	return str.split(" ")[1];
 };
 
-let catalogSelected: CatalogInterface = null;
-
-export const select: Handler = async (req, res, next, ctx) => {
+const save: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
-	// const msg = body.message;
-	const chatId = body.message.chat.id;
-	const code = await databaseOperation(chatId, body.message.text, ctx);
-	let msgText = "";
+	const msg = body.message;
+	const chatId = msg.chat.id;
+	let cmdParam = parser(msg.text);
+	let catalogId: Types.ObjectId = null;
+	let saveAs = false;
+	let code:number = 1;
+
+	// 处理命令, 命令决定 Catalog 的名称以及是否新建
+	let catalogName = ""
+	if (!cmdParam) { //空字符串或者 undefined
+		catalogName = new Buffer(Date.now().toString()).toString("base64");
+		catalogName = "清单" + catalogName.substring(catalogName.length - 9, 7);
+	} else {
+		saveAs = true;
+		catalogName = cmdParam;
+	}
+
+	// 处理状态, 状态决定是否新建
+	if (ctx.State && ctx.State.catalogId !== null) {}
+	else {
+		saveAs = true;
+	}
+
+	if(saveAs) {
+		try {
+			catalogId = await saveCatalog(chatId, catalogName, ctx.DB);
+		} catch (e) {
+			code = e;
+		}
+		if(catalogId != null) {
+			code = await saveOptions(chatId, catalogId, ctx.DB);
+		}
+	} else {
+		catalogId = ctx.State.catalogId;
+		code = await saveOptions(chatId, catalogId, ctx.DB);
+		catalogName = "嘿嘿嘿, 我没写这里的逻辑";
+	}
+	let resMsgText = "";
 	switch (code) {
 		case 0:
-			msgText =
-				`切换成功, 当前候选列表名称为 *${catalogSelected.name}*\n
-				\t 备注信息: ${catalogSelected.note}\n`;
+			resMsgText =
+				`保存成功, 当前候选列表名称为 *${catalogName}*\n`;
 			break;
 		case -1:
 		case -2:
 		case -3:
-			msgText = "尝试保存当前已修改的列表时发生错误, 因此未能执行切换";
+			resMsgText = "尝试保存当前已修改的列表时发生错误";
 			break;
 		case -4:
-		case -6:
-		case -7:
-			msgText = "查询数据库时发生了错误, 操作失败";
+			resMsgText = "查询数据库时发生了错误, 操作失败";
 			break;
 		case -5:
-			msgText = "不存在这个候选列表";
+		case -6:
+			resMsgText = "保存列表失败";
 			break;
-		case -8:
-			msgText = "写入数据库时发生了错误, 操作失败";
-			break;
+		default:
+			resMsgText = "未预料的错误";
 	}
+	if (code >= 0)
+		ctx.State.edited = false;
 	sendMessage({
 		chat_id: chatId,
 		parse_mode: "Markdown",
-		text: msgText
+		text: resMsgText
 	});
-	next();
+	return Promise.resolve(code);
 };
 
-const databaseOperation = async (
+const saveOptions = async (
 	chatId: number,
-	msgText: string,
-	ctx: CmdRouterInterface
+	catalogId: Types.ObjectId,
+	database: Mongoose.Connection
 ): Promise<number> => {
-	let unSavedList: Array<OptionInterface> = [];
-	let catalogId: Types.ObjectId;
-	let catalogList: Array<CatalogDocInterface> = [];
 	let ret = 0;
+	let unSavedList: Array<OptionInterface> = [];
 	const currentListModel: Mongoose.Model<DBCurrentListDocInterface> =
-		ctx.DB.model(currentCollName, currentListSchema);
+		database.model(currentCollName, currentListSchema);
 	const optionsModel: Mongoose.Model<DBOptionDocInterface> =
-		ctx.DB.model(optionCollName, optionsListSchema);
-	const catalogListModel: Mongoose.Model<DBCatalogListDocInterface> =
-		ctx.DB.model(catalogCollName, catalogListSchema);
+		database.model(optionCollName, optionsListSchema);
 
 	// 尝试保存状态
-	if (ctx.State && ctx.State.edited) { // 尝试保存未保存的当前列表
-		const _filter: DBCurrentListInterface = {
-			chatId,
-			catalogId: ctx.State.catalogId
-		};
-		await currentListModel.findOne(_filter).exec((err, _res) => {
-			if (err) {
-				console.error("select: model.findOne(_filter): err:", err);
-				console.error("select: model.findOne(_filter): filter:", _filter);
-				ret = -1;
-			} else if (!_res) {
-				console.error("select: model.findOne(_filter): filter:", _filter);
-				ret = -2;
-			} else {
-				unSavedList = _res.options;
-				catalogId = _res.catalogId;
-			}
-		});
-		if (ret < 0) {
-			return new Promise(res => res(ret));
+	const _filter: DBCurrentListInterface = {
+		chatId,
+		catalogId
+	};
+	await currentListModel.findOne(_filter).exec((err, _res) => {
+		if (err) {
+			console.error("Save: currentListModel.findOne(_filter): err:", err);
+			console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
+			ret = -1;
+		} else if (!_res) {
+			console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
+			ret = -2;
+		} else {
+			unSavedList = _res.options;
 		}
+	});
+	if (ret < 0) {
+		return Promise.resolve(ret);
 	}
 	// 执行保存
-	if (unSavedList.length > 0) { // 执行保存
+	// if (unSavedList.length > 0) { // 执行保存, 即使是空列表也保存, 因为已经保存了 Catalog
 		await optionsModel.update({ catalogId }, {
 			catalogId: catalogId,
 			options: unSavedList
-		}, (err, raw) => {
+		}, {upsert: true}, (err, raw) => {
 			if (err) {
-				console.error("select: model.findOne(_filter): err:", err);
+				console.error("Save: optionsModel.update(_filter): err:", err);
 				ret = -3;
 			} else {
 				console.log('Edited list has been saved. ', raw);
 			}
 		})
 		if (ret < 0)
-			return new Promise(res => res(ret));
-	}
-	// 执行切换
-	await catalogListModel.findOne({ chatId }).exec((err, _res) => {
-		if (err) {
-			console.error("select: model.findOne(_filter): err:", err);
-			ret = -4;
-		} else if (!_res || _res.catalogList.length <= 0) {
-
-		} else {
-			catalogList = _res.catalogList;
-		}
-	});
-	if (ret < 0)
-		return new Promise(res => res(ret));
-	let _index = parser(msgText);
-	if(isNaN(_index) || _index >= catalogList.length) {
-		ret = -5;
-		return new Promise(res => res(ret));
-	}
-	catalogId = catalogList[_index]._id;
-	catalogSelected = catalogList[_index];
-	await optionsModel.findOne({ catalogId }).exec((err, _res) => {
-		if (err) {
-			console.error("select: optionsModel.findOne: err:", err);
-			ret = -6;
-		} else if (!_res) {
-			ret = -7;
-		} else {
-			unSavedList = _res.optionList;
-		}
-	});
-	if (ret < 0)
-		return new Promise(res => res(ret));
-
-	await currentListModel.update({ chatId }, {
-			chatId, catalogId, options: unSavedList
-		}, { upsert: true, multi: true, overwrite: true },
-		(err, raw) => {
-			if (err) {
-				ret = -8;
-				console.error("currentListModel.update: err:", err);
-			} else {
-				console.log("currentListModel.update: raw", raw);
-			}
-	});
-	return new Promise(res => res(ret));
+			return Promise.resolve(ret);
+	// }
+	return Promise.resolve(ret);
 };
 
-export default select;
+const saveCatalog = async (
+	chatId: number,
+	catalogName: string,
+	database: Mongoose.Connection
+): Promise<Types.ObjectId> => {
+	let catalogList: Array<CatalogDocInterface> = [];
+	let catalogId: Types.ObjectId = null;
+	let ret = 0;
+	const catalogListModel: Mongoose.Model<DBCatalogListDocInterface> =
+		database.model(catalogCollName, catalogListSchema);
+	await catalogListModel.findOne({ chatId }).exec(async (err, _res) => {
+		if (err) {
+			console.error("Save: optionsModel.update(_filter): err:", err);
+			ret = -4;
+		} else if(!_res || !Array.isArray(_res.catalogList)) {
+			let iModel = new catalogListModel({
+				chatId,
+				catalogList: [{
+					name: catalogName,
+					note: ""
+				}]
+			});
+			try {
+				await iModel.save().then(prod => {
+					catalogId = prod.catalogList[0]._id;
+				});
+			} catch(err) {
+				console.error("Save: iModel.save(): err", err);
+				ret = -5
+			}
+		} else {
+			let _len = _res.catalogList.length;
+			_res.catalogList.push(<CatalogDocInterface>{
+				name: catalogName,
+				note: ""
+			});
+			try {
+				await _res.save().then(prod => {
+					catalogId = prod.catalogList[_len]._id;
+				});
+			} catch(err) {
+				console.error("Save: iModel.save(): err", err);
+				ret = -6;
+			}
+		}
+	})
+	if (ret < 0)
+		return Promise.reject(ret);
+
+	return Promise.resolve(catalogId);
+};
+
+export default save;
 
 /*
- * 对外暴露的切换接口
+ * 对外暴露的保存接口
  */
-// export const loadCatalog = () => {
+// export const saveCatalogAndOptions = () => {
 //
 // };

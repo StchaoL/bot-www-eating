@@ -2,7 +2,7 @@ import { Handler, RequestBody } from "../cmdRouter";
 // import Mongoose from "mongoose";
 import { sendMessage } from "../util";
 
-const handler: Handler = (req, res, next, ctx) => {
+const handler: Handler = (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	// const msg = body.message;
 	const chat = body.message.chat;
@@ -32,7 +32,6 @@ PS：
 		parse_mode: "Markdown",
 		text: _helpText // i18n
 	});
-	next();
 };
 
 export default handler

@@ -60,13 +60,13 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 	return new Promise(res => res(_ret));
 };
 
-const del: Handler = async (req, res, next, ctx) => {
+const del: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
-	if (!msg) {
-		next();
-		return console.error("Message is undefined:", body);
-	}
+	// if (!msg) {
+	// 	console.error("Message is undefined:", body);
+	// 	return Promise.reject();
+	// }
 	const chat = msg.chat;
 	const _filter: DBCurrentListInterface = {
 		chatId: chat.id
@@ -76,7 +76,7 @@ const del: Handler = async (req, res, next, ctx) => {
 	if (code >= 0) {
 		ctx.State.edited = true;
 	}
-	next();
+	return Promise.resolve(code);
 };
 
 export default del

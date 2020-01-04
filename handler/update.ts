@@ -88,14 +88,13 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 	});
 };
 
-const update: Handler = async (req, res, next, ctx) => {
+const update: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
 		res.json({
 			success: false
 		});
-		next();
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
@@ -107,7 +106,6 @@ const update: Handler = async (req, res, next, ctx) => {
 	if(code >= 0) {
 		ctx.State.edited = true;
 	}
-	next();
 };
 
 export default update
