@@ -25,7 +25,7 @@ let ENV_VARIABLE = require("../env/" + BUILD_VERSION);
 try {
   var app = require('../dist/app');
 } catch (e) {
-  console.error("Please run 'npm run build' first.", e);
+  console.error("Error while starting. Error: \n", e);
   return;
 }
 

@@ -81,11 +81,15 @@ export class CmdRouter {
 	// private catalogMap: catalogMap = { };
 
 	constructor() {
-		const _db = new Database();
-		if (_db.mongoInstance == null)
-			_db.connectMongoDB();
-		this.database = _db.mongoInstance;
-		const model = _db.mongoInstance.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
+		this.init();
+	}
+
+	private async init() {
+		if(this.database == null)
+			await this.openDatabase();
+		if(!this.database)
+			return Promise.resolve("Open database failed");
+		const model = this.database.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
 		model.find(null,  {
 			catalogId: 1,
 			chatId: 1
@@ -107,6 +111,12 @@ export class CmdRouter {
 		})
 	}
 
+	private async openDatabase() {
+		const _db = new Database();
+		if (_db.mongoInstance == null)
+			this.database = await _db.connectMongoDB();
+	}
+
 	private parseCmd = (text: string): Array<string> => {
 		let _ret = [];
 		// 合并空白字符
@@ -122,6 +132,10 @@ export class CmdRouter {
 
 	public main: RequestHandler = (req, res, next) => {
 		//	console.log("Request", JSON.stringify(req.body));
+		if(!this.database) {
+			next();
+			return;
+		}
 		let _body: RequestBody = req.body;
 		if (!_body || _body.message == undefined || _body.update_id == undefined || !_body.message.text) {
 			console.error(`RequestError: ${JSON.stringify(req.body)}`);

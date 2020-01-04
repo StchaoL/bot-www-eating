@@ -1,5 +1,5 @@
 import request, { Options, RequestPromise } from "request-promise-native";
-import mongoose, {Document, Types} from "mongoose";
+import mongoose, {Document, Types, Connection} from "mongoose";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
 
@@ -92,26 +92,26 @@ export class Database {
 	}
 
 	public async connectMongoDB() {
-		try {
-			await mongoose.connect(this.MONGODB_ADDRESS, {
-				useNewUrlParser: true,
-				bufferMaxEntries: 0,
-				autoReconnect: true,
-				poolSize: 5
-			});
-
-			const db = mongoose.connection
-			db.on('error', (error) => {
-				console.log(`MongoDB connecting failed: ${error}`);
-			});
-			db.once('open', () => {
-				console.log('MongoDB connecting succeeded');
-			});
-			this.mongoInstance = db;
-			return Promise.resolve(db);
-		} catch (error) {
-			console.error(`MongoDB connecting failed: ${error}`);
-			return Promise.reject(error);
-		}
+		return new Promise<Connection>((res, rej) => {
+			mongoose.connect(this.MONGODB_ADDRESS, {
+					useNewUrlParser: true,
+					bufferMaxEntries: 0,
+					autoReconnect: true,
+					poolSize: 5
+			}).then((m) => {
+				const db = m.connection
+				db.on('error', (error) => {
+					console.error(`MongoDB connecting failed: ${error}`);
+				});
+				db.once('open', () => {
+					console.log('MongoDB connecting succeeded');
+				});
+				this.mongoInstance = db;
+				res(db);
+			}).catch((error) => {
+				console.error(`MongoDB connecting failed: ${error}`);
+				rej(error);
+			})
+		});
 	}
 }

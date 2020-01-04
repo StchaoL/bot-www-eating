@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(`/${tokenEncoded}`, cmdRouter.main);
-app.use((req, res, next ) => {
+app.use(`/${tokenEncoded}`, (req, res, next ) => {
     res.json({
         success: true
     });
