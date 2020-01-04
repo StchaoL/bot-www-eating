@@ -28,8 +28,9 @@ import {
  * "写入 Current 时发生错误" -8
  */
 
-const parser = (str: string): number => {
-	return parseInt(str.replace(/.*?(\d+).*?/g, "$1"));
+const parser = (str: string): string => {
+	str = str.replace(/\s{1,}/g, " ");
+	return str.split(" ")[1];
 };
 
 let catalogSelected: CatalogInterface = null;
@@ -75,6 +76,27 @@ const select: Handler = async (req, res, ctx) => {
 	return Promise.resolve(code);
 };
 
+const getCatalogIdByParam = (param: string, catalogList: Array<CatalogDocInterface>): CatalogDocInterface => {
+	let _param = parser(param);
+	if(!_param) { //空字符串
+		return null;
+	}
+	let _index = parseInt(_param);
+	if(!isNaN(_index)) {
+		if(_index >= catalogList.length) {
+			return null;
+		} else {
+			return catalogList[_index];
+		}
+	}
+	for(let i=0, len=catalogList.length; i<len; i++) {
+		if (catalogList[i].name == _param) {
+			return catalogList[i];
+		}
+	}
+	return null;
+}
+
 const databaseOperation = async (
 	chatId: number,
 	msgText: string,
@@ -105,13 +127,13 @@ const databaseOperation = async (
 	});
 	if (ret < 0)
 		return new Promise(res => res(ret));
-	let _index = parser(msgText);
-	if(isNaN(_index) || _index >= catalogList.length) {
-		ret = -5;
-		return new Promise(res => res(ret));
-	}
-	catalogId = catalogList[_index]._id;
-	catalogSelected = catalogList[_index];
+	
+	let _catalogDocSelected = getCatalogIdByParam(msgText, catalogList);
+	catalogId = _catalogDocSelected._id;
+	catalogSelected = {
+		name: _catalogDocSelected.name,
+		note: _catalogDocSelected.note
+	};
 	await optionsModel.findOne({ catalogId }).exec().then((_res) => {
 		if (!_res) {
 			ret = -7;

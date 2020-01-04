@@ -73,7 +73,7 @@ export class CmdRouter {
 		"alter": alter,
 		"drop": drop,
 		"save": save,
-		"use": select
+		"cd": select
 	};
 
 	private stateTable: Array<currentState> = [];

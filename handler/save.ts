@@ -65,6 +65,9 @@ const save: Handler = async (req, res, ctx) => {
 		if(catalogId != null) {
 			code = await saveOptions(chatId, catalogId, ctx.DB);
 		}
+		if(code >= 0) {
+			ctx.State.catalogId = catalogId;
+		}
 	} else {
 		catalogId = ctx.State.catalogId;
 		code = await saveOptions(chatId, catalogId, ctx.DB);
@@ -123,6 +126,7 @@ const saveOptions = async (
 			console.error("Save: currentListModel.findOne(_filter): filter:", _filter);
 			ret = -2;
 		} else {
+			_res.catalogId = catalogId;
 			unSavedList = _res.options;
 		}
 	}).catch(err => {
