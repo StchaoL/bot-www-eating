@@ -89,6 +89,7 @@ const save: Handler = async (req, res, ctx) => {
 			resMsgText = "保存列表失败";
 			break;
 		default:
+			console.error(code);
 			resMsgText = "未预料的错误";
 	}
 	if (code >= 0)

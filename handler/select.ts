@@ -64,6 +64,9 @@ const select: Handler = async (req, res, ctx) => {
 		case -8:
 			msgText = "写入数据库时发生了错误, 操作失败";
 			break;
+		default:
+			console.error(code);
+			msgText = "未预料的错误";
 	}
 	sendMessage({
 		chat_id: chatId,
