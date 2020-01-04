@@ -165,7 +165,8 @@ const databaseOperation = async (
 	});
 	if (ctx.State) {
 		ctx.State.edited = false;
-		ctx.State.catalogId = catalogId
+		ctx.State.catalogId = catalogId;
+		console.log("Select: state changed:", JSON.stringify(ctx.State));
 	}
 	return new Promise(res => res(ret));
 };

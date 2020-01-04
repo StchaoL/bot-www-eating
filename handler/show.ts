@@ -21,7 +21,12 @@ const show: Handler = async (req, res, ctx) => {
 	const message = body.message;
 	const chatId = message.chat.id;
 	let catalogList: Array<CatalogDocInterface> = [];
-	catalogList = await databaseOperation(chatId, ctx.DB);
+	try {
+		catalogList = await databaseOperation(chatId, ctx.DB);
+	} catch(err) {
+		console.error("show: databaseOperation:", err);
+		catalogList = [];
+	}
 	if (!catalogList || catalogList.length <= 0) {
 		sendMessage({
 			chat_id: chatId,

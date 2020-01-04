@@ -109,6 +109,7 @@ export class CmdRouter {
 						edited: false
 					})
 				})
+				console.log("Current stateTable:", JSON.stringify(this.stateTable));
 			}
 		})
 	}
