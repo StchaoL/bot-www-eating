@@ -78,6 +78,7 @@ const select: Handler = async (req, res, ctx) => {
 
 const getCatalogIdByParam = (param: string, catalogList: Array<CatalogDocInterface>): CatalogDocInterface => {
 	let _param = parser(param);
+	console.log("select: cmdParam:", _param);
 	if(!_param) { //空字符串
 		return null;
 	}
@@ -129,6 +130,10 @@ const databaseOperation = async (
 		return new Promise(res => res(ret));
 	
 	let _catalogDocSelected = getCatalogIdByParam(msgText, catalogList);
+	if (_catalogDocSelected == null) {
+		ret = -5;
+		return new Promise(res => res(ret));
+	}
 	catalogId = _catalogDocSelected._id;
 	catalogSelected = {
 		name: _catalogDocSelected.name,
@@ -149,7 +154,6 @@ const databaseOperation = async (
 
 	await currentListModel.updateMany({ chatId }, {
 			$set: {
-				chatId,
 				catalogId,
 				options: unSavedList
 			}

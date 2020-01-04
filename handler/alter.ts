@@ -74,10 +74,8 @@ const _handler = async (filter: DBCatalogListInterface, msgText: string, IModel:
 			_ret = -4;
 			return;
 		}
-		res.catalogList[option.index] = <CatalogDocInterface><unknown>{
-			name: option.name,
-			note: option.note
-		};
+		res.catalogList[option.index].name = option.name;
+		res.catalogList[option.index].note = option.note;
 		res.save();
 	}).catch(err => {
 		sendMessage({

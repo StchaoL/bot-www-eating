@@ -175,7 +175,7 @@ export class CmdRouter {
 				catalogId: null,
 				edited: true
 			};
-			this.stateTable.push(_state)
+			this.stateTable.push(_state);
 		}
 		console.log("Command: ", cmd[0]);
 		this.router[cmd[0]](req, res, {

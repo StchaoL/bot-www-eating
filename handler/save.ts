@@ -51,6 +51,7 @@ const save: Handler = async (req, res, ctx) => {
 	}
 
 	// 处理状态, 状态决定是否新建
+	console.log("Save: current state:", JSON.stringify(ctx.State));
 	if (ctx.State && ctx.State.catalogId !== null) {}
 	else {
 		saveAs = true;

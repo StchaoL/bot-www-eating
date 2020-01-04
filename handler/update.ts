@@ -80,10 +80,8 @@ const _handler = async (filter: DBCurrentListInterface, msgText: string, IModel:
 			_ret = -4;
 			return;
 		}
-		res.options[option.index] = {
-			name: option.name,
-			priority: option.priority
-		};
+		res.options[option.index].name = option.name;
+		res.options[option.index].priority = option.priority;
 		res.save();
 	});
 	return new Promise((res) => {
