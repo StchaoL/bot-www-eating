@@ -70,7 +70,8 @@ const pwd: Handler = async (req, res, ctx) => {
 		sendMessage({
 			chat_id: chatId,
 			parse_mode: "Markdown",
-			text: `清单名称: \t*${catalog.name}*\n\n
+			text: `当前状态:
+			清单名称: \t*${catalog.name}*\n\n
 			状态: ${stateStr} \n
 			备注: ${catalog.note}\n\n
 			`

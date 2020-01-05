@@ -75,7 +75,7 @@ const drop: Handler = async (req, res, ctx) => {
 			console.error("Unexpected code:", code);
 			resMsgText = "未预料的错误";
 	}
-	if (code >= 0 && ctx.State.catalogId == catalogId) {
+	if (code >= 0 && ctx.State.catalogId.equals(catalogId)) {
 		ctx.State.edited = false;
 		ctx.State.catalogId = null;
 	}
