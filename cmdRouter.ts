@@ -23,6 +23,7 @@ import select from './handler/select';
 import drop from './handler/drop';
 import save from './handler/save';
 import clear from "./handler/clear";
+import pwd from "./handler/pwd";
 
 // const logger = log4js.getLogger();
 
@@ -75,7 +76,8 @@ export class CmdRouter {
 		"drop": drop,
 		"save": save,
 		"cd": select,
-		"new": clear
+		"new": clear,
+		"pwd": pwd
 	};
 
 	private stateTable: Array<currentState> = [];

@@ -95,9 +95,6 @@ const alter: Handler = async (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg) {
-		res.json({
-			success: false
-		});
 		return console.error("Message is undefined:", body);
 	}
 	const chat = msg.chat;
