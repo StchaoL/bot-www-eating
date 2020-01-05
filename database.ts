@@ -1,7 +1,4 @@
-import request, { Options, RequestPromise } from "request-promise-native";
 import mongoose, {Document, Types, Connection} from "mongoose";
-import { URL } from "url";
-import { SentMessage } from "./TelegramType";
 
 // const mongoose = require('mongoose')
 // const config = require('./config')
