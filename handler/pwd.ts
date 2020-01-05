@@ -23,9 +23,10 @@ const databaseOperation = async (chatId: number, catalogId: Types.ObjectId, data
 	let code = 0;
 	await IModel.findOne({
 		chatId,
-		"catalogList.catalogId": catalogId
+		"catalogList._id": catalogId
 	}).exec().then(res => {
 		if (!res || !Array.isArray(res.catalogList) || res.catalogList.length <= 0) {
+			console.error("pwd: IModel.findOne: filter:", JSON.stringify({chatId, "catalogList.catalogId": catalogId}));
 			code = -3;
 		} else {
 			ret = res.catalogList[0];
