@@ -4,3 +4,4 @@ dist/*
 .idea/
 env/prod.js
 logs/*
+/package-lock.json

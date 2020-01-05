@@ -1,15 +1,21 @@
-import { Handler, RequestBody } from "../main";
-import { MongoDBDocumentInterface, sendMessage, MongoDBModelInterface } from "../util";
-import Mongoose from "mongoose"
+import { Handler, RequestBody } from "../cmdRouter";
+import { sendMessage } from "../util";
+import Mongoose from "mongoose";
+import {
+	currentCollName,
+	currentListSchema,
+	DBCurrentListDocInterface,
+	DBCurrentListInterface
+} from "../database";
 
-const handler: Handler = (req, res, next, ctx) => {
+const start: Handler = (req, res, ctx) => {
 	const body: RequestBody = req.body;
 	const msg = body.message || body.edited_message;
 	if (!msg)
 		return console.error("Message is undefined:", body);
 	const chat = msg.chat;
-	const model = Mongoose.model<MongoDBModelInterface>(chat.type, ctx.Schema);
-	const _filter: MongoDBDocumentInterface = {
+	const model = ctx.DB.model<DBCurrentListDocInterface>(currentCollName, currentListSchema);
+	const _filter: DBCurrentListInterface = {
 		chatId: chat.id
 	}
 	model.findOne(_filter).exec((err, res) => {
@@ -48,10 +54,6 @@ const handler: Handler = (req, res, next, ctx) => {
 			});
 		}
 	});
-	res.json({
-		success: true
-	});
-	next();
-}
+};
 
-export default handler
+export default start

@@ -2,6 +2,7 @@ import request, { Options, RequestPromise } from "request-promise-native";
 import mongoose, { Document } from "mongoose";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
+import { OptionInterface } from "./database";
 
 // const mongoose = require('mongoose')
 // const config = require('./config')
@@ -10,10 +11,6 @@ import { SentMessage } from "./TelegramType";
 // const fs = require("fs");
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
-const DB_NAME = process.env.DB_NAME || TOKEN;
-const MONGODB_ADDRESS = process.env.MONGODB_ADDRESS || "mongodb://localhost:27017/" + DB_NAME;
-
-const Schema = mongoose.Schema;
 
 interface WebHookConf {
 	url: string;
@@ -44,7 +41,7 @@ export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 		}
 	};
 	return request(_opt);
-}
+};
 
 export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 	let _opt: Options = {
@@ -55,90 +52,35 @@ export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 		}
 	};
 	return request(_opt);
-}
-
-// MongoDB
-
-if (process.env.NODE_ENV === 'development') {
-	mongoose.set('debug', true);
-}
-
-mongoose.set('bufferCommands', false);
-
-function connectMongoDB(address: string) {
-	try {
-		mongoose.connect(address, {
-			useNewUrlParser: true,
-			bufferMaxEntries: 0,
-			autoReconnect: true,
-			poolSize: 5
-		})
-
-		const db = mongoose.connection
-		db.on('error', (error) => {
-			console.log(`MongoDB connecting failed: ${error}`)
-		})
-		db.once('open', () => {
-			console.log('MongoDB connecting succeeded')
-		})
-		return db
-	} catch (error) {
-		console.log(`MongoDB connecting failed: ${error}`)
-	}
-}
-
-export const mongoInstance = connectMongoDB(MONGODB_ADDRESS);
-
-export const optionSchema = new Schema({
-	name: String,
-	priority: Number
-});
-
-export const botSchema = new Schema({
-	chatId: { type: Number, index: true },
-	options: [optionSchema]
-});
-
-export interface MongoDBDocumentInterface {
-	chatId: number;
-	options?: Array<OptionInterface>;
-};
-
-export interface MongoDBModelInterface extends MongoDBDocumentInterface, Document { };
-
-export interface OptionInterface {
-	name: string;
-	priority: number;
 };
 
 export interface ParsedOptionInterface extends OptionInterface {
 	index: number;
 }
 
-export const parser = (str: string, addMode: boolean): ParsedOptionInterface => {
-	// (/\d+\s*(=>|->|👉|→)\s*.+?\s*:\s*\d+.*/)
-	// let _index = 0
-	if (str.indexOf(":") < 0)
-		str = str + ": 1";
-	let ret: ParsedOptionInterface = {
-		index: -1,
-		name: "",
-		priority: -1
+export enum ValidateType {
+	CatalogName = 0,
+	CatalogNote,
+	OptionName,
+	OptionPriority
+}
+
+export const validate = <T>(val: T, type: ValidateType):T => {
+	let _ret: T = val;
+	switch(type) {
+		case ValidateType.CatalogName:
+		case ValidateType.OptionName:
+			if ((val as unknown as string).length > 30)
+				(<string><unknown>_ret) = (<string><unknown>val).substring(0, 30);
+				break;
+		case ValidateType.CatalogNote:
+			if((<string><unknown>val).length > 200)
+				(<string><unknown>_ret) = (<string><unknown>val).substring(0, 140);
+				break;
+		case ValidateType.OptionPriority:
+			if((<number><unknown>val) > 65535)
+				(<number><unknown>_ret) = 65535;
+				break;
 	}
-	let reg: RegExp;
-	if (!addMode) {
-		str.replace(/(\d+)\s*(=>|->|👉|→)\s*(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2, g3, g4) => {
-			ret.index = Number.parseInt(g1);
-			ret.name = g3;
-			ret.priority = Number.parseInt(g4);
-			return "";
-		});
-	} else {
-		str.replace(/\/[a-z]*\s+(.+?)\s*[:|：]\s*(\d+).*/, (s, g1, g2) => {
-			ret.name = g1;
-			ret.priority = Number.parseInt(g2);
-			return "";
-		});
-	}
-	return ret;
+	return _ret;
 }
