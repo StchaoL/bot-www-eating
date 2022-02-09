@@ -11,7 +11,8 @@ import { SentMessage } from "./TelegramType";
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 const DB_NAME = process.env.DB_NAME || TOKEN;
-const MONGODB_ADDRESS = process.env.MONGODB_ADDRESS || "mongodb://localhost:27017/" + DB_NAME;
+let MONGODB_ADDRESS = process.env.MONGODB_ADDRESS || "mongodb://localhost:27017/";
+MONGODB_ADDRESS += DB_NAME;
 
 const Schema = mongoose.Schema;
 
