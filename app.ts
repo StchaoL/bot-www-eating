@@ -3,7 +3,8 @@ import express from "express";
 // import logger from "morgan";
 
 import { URL } from "url";
-import { setWebhook } from "./util";
+import fs from "fs";
+import { setWebhook, WebHookConf } from "./util";
 import { cmdRouter } from "./main";
 
 // const express = require('express');
@@ -46,7 +47,7 @@ try {
 	process.exit(2);
 }
 
-const webHookOption = {
+const webHookOption:WebHookConf = {
 	url: new URL(tokenEncoded, DOMAIN).toString()
 };
 

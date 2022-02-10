@@ -17,7 +17,7 @@ MONGODB_ADDRESS += DB_NAME;
 
 const Schema = mongoose.Schema;
 
-interface WebHookConf {
+export interface WebHookConf {
 	url: string;
 	certificate?: fs.ReadStream;
 	max_connection?: number;
