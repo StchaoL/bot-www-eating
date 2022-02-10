@@ -3,9 +3,11 @@ services:
        express-app-www-eating:
            container_name: express-app-www-eating
            # restart: always
+           env_file:
+              - docker-app.env
            build: .
            ports:
-             - "12300:12300"
+              - "12300:12300"
            command: >
                    sh -c "npm run build && npm run start"
            links:
