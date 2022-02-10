@@ -1,5 +1,6 @@
 import request, { Options, RequestPromise } from "request-promise-native";
 import mongoose, { Document } from "mongoose";
+import fs from "fs";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
 
@@ -18,7 +19,7 @@ const Schema = mongoose.Schema;
 
 interface WebHookConf {
 	url: string;
-	// certificate?: string;
+	certificate?: fs.ReadStream;
 	max_connection?: number;
 	allowed_updates?: Array<string>;
 }

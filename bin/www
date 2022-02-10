@@ -18,6 +18,26 @@ let ENV_VARIABLE = require("../env/" + BUILD_VERSION);
   }
 })();
 
+var path = require('path'); 
+var fs = require('fs'); 
+let HTTPS_ENABLE = false;
+if (process.env.CERTIFICATE) {
+  try {
+    fs.accessSync(process.env.CERTIFICATE, fs.constants.R_OK);
+    if (process.env.PRIVATE_KEY) {
+      try {
+        fs.accessSync(process.env.PRIVATE_KEY, fs.constants.R_OK);
+        process.env.HTTPS_ENABLE = true;
+        HTTPS_ENABLE = process.env.HTTPS_ENABLE;
+      } catch (err) {
+        console.error('Private key no access!');
+      }
+    }
+  } catch (err) {
+    console.error('Certificate file no access!');
+  }
+}
+
 /**
  * Module dependencies.
  */
@@ -30,7 +50,6 @@ try {
 }
 
 var debug = require('debug')('bot-www-eating:server');
-var http = require('http');
 
 
 console.log(JSON.stringify(ENV_VARIABLE));
@@ -46,7 +65,18 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+if(HTTPS_ENABLE) {
+  var http = require("https");
+  const httpsOptions = {
+    key: fs.readFileSync(process.env.PRIVATE_KEY),
+    cert: fs.readFileSync(process.env.CERTIFICATE)
+  }
+  var server = http.createServer(httpsOptions, app)
+} else {
+  var http = require('http');
+  var server = http.createServer(app);
+}
+
 
 /**
  * Listen on provided port, on all network interfaces.

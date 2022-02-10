@@ -46,8 +46,14 @@ try {
 	process.exit(2);
 }
 
-setWebhook({
+const webHookOption = {
 	url: new URL(tokenEncoded, DOMAIN).toString()
-	});
+};
+
+if(process.env.HTTPS_ENABLE) {
+	webHookOption.certificate = fs.createReadStream(process.env.CERTIFICATE);
+}
+
+setWebhook(webHookOption);
 
 module.exports = app;
