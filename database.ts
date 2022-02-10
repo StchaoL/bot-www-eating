@@ -75,7 +75,7 @@ export interface CatalogDocInterface extends CatalogInterface, Document{ }
 export class Database {
 	private TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 	private DB_NAME = process.env.DB_NAME || this.TOKEN;
-	private MONGODB_ADDRESS = process.env.MONGODB_ADDRESS || "mongodb://localhost:27017/" + this.DB_NAME;
+	private MONGODB_ADDRESS = (process.env.MONGODB_ADDRESS || "mongodb://localhost:27017") + "/" + this.DB_NAME;
 
 	public mongoInstance: mongoose.Connection = null;
 

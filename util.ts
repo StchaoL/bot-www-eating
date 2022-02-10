@@ -1,5 +1,6 @@
 import request, { Options, RequestPromise } from "request-promise-native";
-import mongoose, { Document } from "mongoose";
+//import mongoose, { Document } from "mongoose";
+import fs from "fs";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
 import { OptionInterface } from "./database";
@@ -12,9 +13,9 @@ import { OptionInterface } from "./database";
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 
-interface WebHookConf {
+export interface WebHookConf {
 	url: string;
-	// certificate?: string;
+	certificate?: fs.ReadStream;
 	max_connection?: number;
 	allowed_updates?: Array<string>;
 }

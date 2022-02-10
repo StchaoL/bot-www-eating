@@ -3,7 +3,8 @@ import express from "express";
 // import logger from "morgan";
 
 import { URL } from "url";
-import { setWebhook } from "./util";
+import fs from "fs";
+import { setWebhook, WebHookConf } from "./util";
 import { CmdRouter } from "./cmdRouter";
 
 // const express = require('express');
@@ -52,8 +53,14 @@ try {
 	process.exit(2);
 }
 
-setWebhook({
+const webHookOption:WebHookConf = {
 	url: new URL(tokenEncoded, DOMAIN).toString()
-	});
+};
+
+if(process.env.HTTPS_ENABLE) {
+	webHookOption.certificate = fs.createReadStream(process.env.CERTIFICATE);
+}
+
+setWebhook(webHookOption);
 
 module.exports = app;
