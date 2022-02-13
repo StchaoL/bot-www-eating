@@ -1,21 +1,21 @@
 version: "3"
 services:
-       express-app-www-eating:
-           container_name: express-app-www-eating
-           # restart: always
-           env_file:
-              - docker-app.env
-           build: .
-           ports:
-              - "8443:12300"
-           command: >
-                   sh -c "npm run build && npm run start"
-           links:
-             - mongo
-       mongo:
-             container_name: mongo
-             image: mongo
-             volumes:
-               - ./data:/data/db
-             ports:
-               - '27018:27017'
+  express-app-www-eating:
+    container_name: express-app-www-eating
+    # restart: always
+    env_file:
+      - docker-app.env
+    build: .
+    ports:
+      - "8443:12300"
+    command: >
+      sh -c "npm run build && npm run start"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27018:27017'

@@ -12,7 +12,6 @@ import { OptionInterface } from "./database";
 // const fs = require("fs");
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
-
 export interface WebHookConf {
 	url: string;
 	certificate?: fs.ReadStream;
