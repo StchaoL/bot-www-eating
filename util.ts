@@ -1,5 +1,6 @@
 import request, { Options, RequestPromise } from "request-promise-native";
 //import mongoose, { Document } from "mongoose";
+import validUrl from "valid-url";
 import fs from "fs";
 import { URL } from "url";
 import { SentMessage } from "./TelegramType";
@@ -12,6 +13,13 @@ import { OptionInterface } from "./database";
 // const fs = require("fs");
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
+let _request = request;
+
+if ((process.env.HTTP_PROXY || process.env.HTTPS_PROXY) &&
+	(validUrl.isUri(process.env.HTTP_PROXY) || validUrl.isUri(process.env.HTTPS_PROXY))) {
+	_request = request.defaults({ proxy: process.env.HTTP_PROXY || process.env.HTTPS_PROXY });
+}
+
 export interface WebHookConf {
 	url: string;
 	certificate?: fs.ReadStream;
@@ -40,7 +48,7 @@ export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 			'content-type': 'multipart/form-data' // Is set automatically
 		}
 	};
-	return request(_opt);
+	return _request(_opt);
 };
 
 export const sendMessage = (message: SentMessage): RequestPromise<any> => {
@@ -51,7 +59,7 @@ export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 			'content-type': 'multipart/form-data' // Is set automatically
 		}
 	};
-	return request(_opt);
+	return _request(_opt);
 };
 
 export interface ParsedOptionInterface extends OptionInterface {
