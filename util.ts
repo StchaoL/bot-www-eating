@@ -14,10 +14,15 @@ import { OptionInterface } from "./database";
 
 const TOKEN = process.env.TOKEN || "abcdefghijklmnopqrstuvwxyz";
 let _request = request;
+let apiServerUrl = "https://api.telegram.org";
 
 if ((process.env.HTTP_PROXY || process.env.HTTPS_PROXY) &&
 	(validUrl.isUri(process.env.HTTP_PROXY) || validUrl.isUri(process.env.HTTPS_PROXY))) {
 	_request = request.defaults({ proxy: process.env.HTTP_PROXY || process.env.HTTPS_PROXY });
+}
+
+if (process.env.API_SERVER_URL && validUrl.isUri(process.env.API_SERVER_URL) ) {
+	apiServerUrl = process.env.API_SERVER_URL;
 }
 
 export interface WebHookConf {
@@ -30,7 +35,7 @@ export interface WebHookConf {
 export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 	new URL(conf.url);
 	let _opt: Options = {
-		uri: `https://api.telegram.org/bot${TOKEN}/setWebhook`,
+		uri: `${apiServerUrl}/bot${TOKEN}/setWebhook`,
 		formData: conf,
 		// {
 		// 	max_connection: conf.max_connection,
@@ -53,7 +58,7 @@ export const setWebhook = (conf: WebHookConf): RequestPromise<any> => {
 
 export const sendMessage = (message: SentMessage): RequestPromise<any> => {
 	let _opt: Options = {
-		uri: `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+		uri: `${apiServerUrl}/bot${TOKEN}/sendMessage`,
 		formData: message,
 		headers: {
 			'content-type': 'multipart/form-data' // Is set automatically

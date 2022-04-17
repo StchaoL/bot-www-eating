@@ -25,17 +25,18 @@ npm install
 
 3. 在 `env/` 目录下添加适当的环境变量，其中比较重要的是`DOMAIN` 和 `TOKEN`：
 
-|    全局变量     |        含义        |                         备注                         |
-| :-------------: | :----------------: | :--------------------------------------------------: |
-|     DOMAIN      |  Webhook 回调域名  |                         必填                         |
-|      TOKEN      |  机器人的 `token`  |                         必填                         |
-|    BOT_NAME     |    机器人的名称    |           选填，主要用于过滤消息中的@信息            |
-|      PORT       | Express 监听的端口 |                         选填                         |
-|  BUILD_VERSION  |   用于构建的版本   |          选填，用于选择 `env/` 下的预设变量          |
-| MONGODB_ADDRESS | MongoDB 的连接地址 | 若地址中含有数据库 Path, ~~则会忽略 `DB_NAME` 变量~~ |
-|     DB_NAME     |     数据库名称     |                                                      |
-|   PRIVATE_KEY   |      证书私钥      |                         可选                         |
-|   CERTIFICATE   |       证书公       |                         可选                         |
+|    全局变量     |         含义         |                         备注                         |
+| :-------------: | :------------------: | :--------------------------------------------------: |
+|     DOMAIN      |   Webhook 回调域名   |                         必填                         |
+|      TOKEN      |   机器人的 `token`   |                         必填                         |
+|    BOT_NAME     |     机器人的名称     |           选填，主要用于过滤消息中的@信息            |
+|      PORT       |  Express 监听的端口  |                         选填                         |
+|  BUILD_VERSION  |    用于构建的版本    |          选填，用于选择 `env/` 下的预设变量          |
+| MONGODB_ADDRESS |  MongoDB 的连接地址  | 若地址中含有数据库 Path, ~~则会忽略 `DB_NAME` 变量~~ |
+|     DB_NAME     |      数据库名称      |                                                      |
+|   PRIVATE_KEY   |       证书私钥       |                         可选                         |
+|   CERTIFICATE   |       证书公钥       |                         可选                         |
+| API_SERVER_URL  | Telegram api服务地址 |         用于*local api server*方式部署,可选          |
 
 4. 执行编译 (`tsc`)
 
